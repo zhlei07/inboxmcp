@@ -10,10 +10,10 @@ A hosted MCP server that connects the IMAP inboxes you already use to your own A
 <a href="https://app.inboxmcp.ai/app">Dashboard</a> ·
 <a href="https://inboxmcp.ai/support">Setup guide</a> ·
 <a href="https://claude.ai/directory/inboxmcp">Claude directory</a> ·
-<a href="https://x.com/dyland9ym/status/2106770849336590422">90-second demo</a>
+<a href="https://youtu.be/XDvsYyAlRgs">90-second demo</a>
 </p>
 
-<p align="center"><a href="https://x.com/dyland9ym/status/2106770849336590422"><img src="assets/thumbnail.jpg" width="720" alt="inboxmcp demo video"></a></p>
+<p align="center"><a href="https://youtu.be/XDvsYyAlRgs"><img src="assets/thumbnail.jpg" width="720" alt="inboxmcp demo video"></a></p>
 
 This repository holds public documentation and registry metadata for the hosted service. The server source code is not published here.
 
@@ -70,8 +70,9 @@ Email content is treated as untrusted data. The connector passes it to your agen
 
 ## Setup videos
 
-- [Launch demo (1:31)](https://x.com/dyland9ym/status/2106770849336590422)
-- [Grok Bot setup (1:42)](https://x.com/dyland9ym/status/2106780269156151420)
+- [Launch demo (1:32)](https://youtu.be/XDvsYyAlRgs)
+- [Grok Bot setup (1:42)](https://youtu.be/TcPCVjkFWTk)
+- YouTube channel: [@inboxmcp](https://www.youtube.com/@inboxmcp)
 - Full written guide, including Claude Scheduled and ChatGPT: [inboxmcp.ai/support](https://inboxmcp.ai/support)
 - Machine-readable guide for AI assistants: [agent-setup.md](https://inboxmcp.ai/agent-setup.md) · [llms.txt](https://inboxmcp.ai/llms.txt)
 
