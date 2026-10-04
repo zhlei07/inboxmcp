@@ -7,13 +7,16 @@
   "websiteUrl": "https://inboxmcp.ai",
   "repository": {
     "url": "https://github.com/zhlei07/inboxmcp",
-    "source": "github"
+    "source": "github",
+    "id": "1404610023"
   },
   "icons": [
     {
       "src": "https://inboxmcp.ai/favicon.svg",
       "mimeType": "image/svg+xml",
-      "sizes": ["any"]
+      "sizes": [
+        "any"
+      ]
     }
   ],
   "remotes": [
