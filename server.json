@@ -1,0 +1,25 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.zhlei07/inboxmcp",
+  "title": "inboxmcp",
+  "description": "Read-only IMAP email for your AI agent, scoped to the mailboxes you choose, with built-in progress.",
+  "version": "0.2.0",
+  "websiteUrl": "https://inboxmcp.ai",
+  "repository": {
+    "url": "https://github.com/zhlei07/inboxmcp",
+    "source": "github"
+  },
+  "icons": [
+    {
+      "src": "https://inboxmcp.ai/favicon.svg",
+      "mimeType": "image/svg+xml",
+      "sizes": ["any"]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://app.inboxmcp.ai/mcp"
+    }
+  ]
+}
