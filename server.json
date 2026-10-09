@@ -2,8 +2,8 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.zhlei07/inboxmcp",
   "title": "inboxmcp",
-  "description": "Read-only IMAP email for your AI agent, scoped to the mailboxes you choose, with built-in progress.",
-  "version": "0.2.0",
+  "description": "Connect inboxes to your AI, with built-in progress and optional owner-confirmed outgoing email.",
+  "version": "0.4.0",
   "websiteUrl": "https://inboxmcp.ai",
   "repository": {
     "url": "https://github.com/zhlei07/inboxmcp",
