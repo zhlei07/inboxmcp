@@ -31,13 +31,13 @@ Use the platform-specific guide below. A compatible remote MCP client connects t
 | [Muse](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#muse-email-assistant) | Follow the current availability status. No working public Muse connection or event delivery is claimed while review is pending. |
 | [Cursor / other MCP clients](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#other-mcp-clients) | Use compatible remote HTTP OAuth for on-demand reading. New third-party registrations have a read-only permission ceiling. |
 
-Choose processing progress carefully when the option is available:
+**If the processing-progress selector appears**, choose the appropriate option:
 
-- **First connection or a different AI:** create an independent connection starting from new mail. For example, adding Dot alongside Claude should not replace Claude's progress.
+- **New task or a different AI:** choose an independent connection starting from new mail. For example, adding Dot alongside Claude should not replace Claude's progress.
 - **Reconnect the same AI task:** resume that task's existing progress. Do not create a replacement task or reset its baseline just to reconnect.
 - **Change the authorized mailboxes:** confirm the change. Retained mailboxes continue their progress; newly added mailboxes begin at the new authorization boundary.
 
-Do not select another AI's progress merely because it is the only existing entry.
+The selector appears only when built-in progress is authorized and previous progress is available to choose from. The first eligible connection creates its progress automatically; read-only connections have no selector. If no selector appears, continue normal authorization. Its absence is not an error, and reconnecting cannot remove a read-only permission ceiling. Do not select another AI's progress merely because it is the only existing entry.
 
 ### Permissions depend on the client registration
 
@@ -53,7 +53,7 @@ If your connection receives only `email:read`, use it for on-demand reading. Do 
 
 Give your AI this request:
 
-> Read https://inboxmcp.ai/agent-setup.md and use my existing InboxMCP connection. First call list_mailboxes to verify the authorized mailbox scope. If built-in progress is authorized, call get_email_monitor_state and use claim_email_batch / complete_email_batch for this connection. Preserve an existing task's progress; a new AI must have independent progress. Do not create a Notion page, Drive file or local cursor. Configure automatic checks only if this platform and account actually support a schedule or event subscription. State what was tested and what still needs verification. Do not enable sending or change mailbox permissions unless I request it.
+> Read https://inboxmcp.ai/agent-setup.md and use my existing InboxMCP connection. First call list_mailboxes to verify the authorized mailbox scope. If built-in progress is authorized, call get_email_monitor_state and use claim_email_batch / complete_email_batch for this connection. For eligible monitoring, preserve an existing task's progress; a new task or different AI uses independent progress. Only choose a progress option if the selector appears; the first eligible connection creates progress automatically, and read-only connections have no selector. Do not create a Notion page, Drive file or local cursor. Configure automatic checks only if this platform and account actually support a schedule or event subscription. State what was tested and what still needs verification. Do not enable sending or change mailbox permissions unless I request it.
 
 The [AI-readable guide](https://inboxmcp.ai/agent-setup.md) is the detailed reference; [llms.txt](https://inboxmcp.ai/llms.txt) is its discovery index. Both are instructions to inspect, not proof that a particular client supports background execution.
 
