@@ -84,4 +84,4 @@ Anonymous discovery exposes only static handshake/tool metadata (`initialize`, `
 
 Check `get_sending_status`, enable outgoing setup on the website if desired, and authorize `email:send` only through an eligible client. The AI can prepare an immutable draft and share its review link. The signed-in owner reviews its exact recipients and content and confirms sending in InboxMCP. The AI has no approval override. Provider acceptance is not proof of recipient delivery; an uncertain result must not be automatically retried.
 
-[Full AI-readable reference](https://inboxmcp.ai/agent-setup.md) · [Support](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup)
+[Full AI-readable reference](https://inboxmcp.ai/agent-setup.md) · [Support](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup) · [Discord community](https://discord.gg/juts7yc9f)

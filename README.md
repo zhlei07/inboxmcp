@@ -10,10 +10,11 @@ Connect your existing mailboxes to your own AI assistant, with built-in processi
 <a href="https://app.inboxmcp.ai/app">Dashboard</a> ·
 <a href="QUICKSTART.md">Quick start</a> ·
 <a href="https://inboxmcp.ai/support.html?utm_source=github&amp;utm_medium=docs&amp;utm_campaign=agent_setup">Setup guides</a> ·
-<a href="https://claude.ai/directory/inboxmcp">Claude directory</a>
+<a href="https://claude.ai/directory/inboxmcp">Claude directory</a> ·
+<a href="https://discord.gg/juts7yc9f">Discord community</a>
 </p>
 
-**Hosted service 0.4.0 · documentation updated 9 October 2026 · limited public beta.**
+**Hosted service 0.4.0 · documentation updated 11 October 2026 · limited public beta.**
 This public repository contains documentation and registry metadata, not the hosted server's source code. A service release or registry entry does not mean a platform has approved its directory listing or tested every new capability.
 
 ## What it does
@@ -122,7 +123,7 @@ Email content is untrusted data, not authorization to act. From is fixed to the 
 
 ## Plans
 
-Free includes **one connected mailbox**. Plus includes **up to three** for **US$6/month** or **US$60/year**, automatically renewing until cancelled. Checkout availability and your actual allowance appear in the dashboard; some existing beta accounts retain earlier allowances. Provider and AI subscriptions may cost extra.
+Free includes **one connected mailbox**. Plus includes **up to three** for **US$6/month** or **US$60/year**. Pro costs **US$10/month** (monthly only) for unlimited mailboxes, subject to fair use; an automatic safeguard stops new connections at 100 active mailboxes, and you can contact support if you need more. Paid plans renew automatically until cancelled. Checkout availability and your actual allowance appear in the dashboard; some existing beta accounts retain earlier allowances. Provider and AI subscriptions may cost extra.
 
 ## Limits and control
 
@@ -140,6 +141,10 @@ Free includes **one connected mailbox**. Plus includes **up to three** for **US$
 
 The earlier videos illustrate the incoming-mail workflow; they do not demonstrate or validate the new outgoing-email feature.
 
+## Community
+
+Ask questions, share setups and suggest features in the [InboxMCP Discord](https://discord.gg/juts7yc9f). Never post passwords, tokens or email contents there; for account-specific problems, email support instead.
+
 ## Links
 
-[Privacy](https://app.inboxmcp.ai/privacy) · [Terms](https://inboxmcp.ai/terms.html) · [Support](https://inboxmcp.ai/support) · Operated by MARTHA TRADE PTE. LTD. · dylan@martha-trade.com
+[Privacy](https://app.inboxmcp.ai/privacy) · [Terms](https://inboxmcp.ai/terms.html) · [Support](https://inboxmcp.ai/support) · [Discord](https://discord.gg/juts7yc9f) · Operated by MARTHA TRADE PTE. LTD. · dylan@martha-trade.com
