@@ -27,9 +27,9 @@ Use the platform-specific guide below. A compatible remote MCP client connects t
 | --- | --- |
 | [Claude](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#claude-email-assistant) | Connect the published connector, then verify a supported Scheduled task. Incoming mail does not directly wake Claude. |
 | [ChatGPT / Dot](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#chatgpt-dot-email-assistant) | Use the documented connection path available to your account. Verify event support, granted scopes and notifications separately. |
-| [Grok Bot](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#grok-email-assistant) | Create or reuse a Routine and explicitly enable optional webhook delivery. It is separate from mailbox collection and OAuth-based reading. |
+| [Grok Bot](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#grok-email-assistant) | Add InboxMCP as a custom MCP server from a Bot chat and sign in with OAuth (verified 10 October). Optional webhook delivery to a Routine is a separate setting. |
 | [Muse](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#muse-email-assistant) | Follow the current availability status. No working public Muse connection or event delivery is claimed while review is pending. |
-| [Cursor / other MCP clients](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#other-mcp-clients) | Use compatible remote HTTP OAuth for on-demand reading. New third-party registrations have a read-only permission ceiling. |
+| [Cursor / other MCP clients](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#other-mcp-clients) | Use compatible remote HTTP OAuth. You choose each permission on the consent page. Grok Bot's connection through Cursor's hosted client was verified on 10 October; the Cursor desktop flow is not yet verified end to end. |
 
 **If the processing-progress selector appears**, choose the appropriate option:
 
@@ -37,27 +37,27 @@ Use the platform-specific guide below. A compatible remote MCP client connects t
 - **Reconnect the same AI task:** resume that task's existing progress. Do not create a replacement task or reset its baseline just to reconnect.
 - **Change the authorized mailboxes:** confirm the change. Retained mailboxes continue their progress; newly added mailboxes begin at the new authorization boundary.
 
-The selector appears only when built-in progress is authorized and previous progress is available to choose from. The first eligible connection creates its progress automatically; read-only connections have no selector. If no selector appears, continue normal authorization. Its absence is not an error, and reconnecting cannot remove a read-only permission ceiling. Do not select another AI's progress merely because it is the only existing entry.
+The selector appears only when built-in progress is authorized and previous progress is available to choose from. The first progress-enabled connection creates its progress automatically; read-only connections have no selector. If no selector appears, continue normal authorization. Its absence is not an error. Do not select another AI's progress merely because it is the only existing entry.
 
-### Permissions depend on the client registration
+### You choose each permission
 
 - `email:read` allows reading the selected mailboxes.
 - `consumer-state:write`, when available and separately authorized with reading, allows InboxMCP to save that connection's processing progress.
 - `email:send`, when available and separately authorized with reading, allows draft preparation and sending only after the owner confirms the exact draft on the website.
 
-**New third-party dynamic registrations default to, and are capped at, `email:read`.** Requesting every advertised scope does not grant every scope: the server narrows the request, and the issued token states the actual scope. Additional permissions are available only to eligible client registrations; a familiar client name alone does not grant them.
+Any dynamically registered client may request these permissions. The consent page shows a checkbox for each requested permission, and the grant is exactly what you leave ticked. `email:read` is required. Progress starts ticked; sending starts unticked and needs an extra confirmation. The issued token states the actual scope. Existing grants and refresh tokens never widen, including grants issued under the earlier read-only policy that was retired on 10 October 2026.
 
-If your connection receives only `email:read`, use it for on-demand reading. Do not promise built-in batch acknowledgements or outgoing mail, create an external progress database as a workaround, or repeatedly reconnect expecting the permission ceiling to change. Check the guide for the supported platform path or contact support.
+If your connection has only `email:read`, use it for on-demand reading. Do not promise built-in batch acknowledgements or outgoing mail, or create an external progress database as a workaround. To add progress, reconnect once with it requested and leave it ticked on the consent page, keeping the same task's saved progress. Do not loop reconnects; if the permission is still missing, check the guide for your platform or contact support.
 
 ## 3. Ask your AI to verify setup
 
 Give your AI this request:
 
-> Read https://inboxmcp.ai/agent-setup.md and use my existing InboxMCP connection. First call list_mailboxes to verify the authorized mailbox scope. If built-in progress is authorized, call get_email_monitor_state and use claim_email_batch / complete_email_batch for this connection. For eligible monitoring, preserve an existing task's progress; a new task or different AI uses independent progress. Only choose a progress option if the selector appears; the first eligible connection creates progress automatically, and read-only connections have no selector. Do not create a Notion page, Drive file or local cursor. Configure automatic checks only if this platform and account actually support a schedule or event subscription. State what was tested and what still needs verification. Do not enable sending or change mailbox permissions unless I request it.
+> Read https://inboxmcp.ai/agent-setup.md and use my existing InboxMCP connection. First call list_mailboxes to verify the authorized mailbox scope. If built-in progress is authorized, call get_email_monitor_state and use claim_email_batch / complete_email_batch for this connection. For monitoring, preserve an existing task's progress; a new task or different AI uses independent progress. Only choose a progress option if the selector appears; the first progress-enabled connection creates progress automatically, and read-only connections have no selector. Do not create a Notion page, Drive file or local cursor. Configure automatic checks only if this platform and account actually support a schedule or event subscription. State what was tested and what still needs verification. Do not enable sending or change mailbox permissions unless I request it.
 
 The [AI-readable guide](https://inboxmcp.ai/agent-setup.md) is the detailed reference; [llms.txt](https://inboxmcp.ai/llms.txt) is its discovery index. Both are instructions to inspect, not proof that a particular client supports background execution.
 
-For an eligible monitoring connection:
+For a progress-enabled monitoring connection:
 
 1. Check collection health and pending work using `get_email_monitor_state`.
 2. Claim a batch, analyze each readable item and use only the returned `view_url` in a mail reminder.
@@ -76,12 +76,12 @@ If a message is unreadable, defer it rather than recording it as successfully pr
 
 ## Directory health checks are not mailbox access
 
-Glama's anonymous connection test was confirmed successful in the publisher's screenshot on **9 October 2026 at 19:04:41 Singapore time (11:04:41 UTC)**, with Authentication Type set to **None**. This is a dated test result, not a promise of future uptime or a completed Glama OAuth email-access test.
+Glama's anonymous connection test was confirmed successful in the publisher's screenshot on **9 October 2026 at 19:04:41 Singapore time (11:04:41 UTC)**, with Authentication Type set to **None**. That test predates the 10 October change below, and Glama now reports its latest anonymous health check as not completed.
 
-Anonymous discovery exposes only static handshake/tool metadata (`initialize`, `ping`, `tools/list` and empty resource/prompt catalogs). All actual tool calls still require OAuth and the user's selected-mailbox authorization. A directory does not need the publisher's real mailbox authorization to check discovery health.
+Since 10 October, anonymous `initialize` receives the OAuth challenge so that clients start sign-in at connect time. Anonymous discovery exposes only static metadata (`ping`, `tools/list` and empty resource/prompt catalogs). All actual tool calls still require OAuth and the user's selected-mailbox authorization. A directory does not need the publisher's real mailbox authorization to check discovery health.
 
 ## Optional outgoing mail
 
-Check `get_sending_status`, enable outgoing setup on the website if desired, and authorize `email:send` only through an eligible client. The AI can prepare an immutable draft and share its review link. The signed-in owner reviews its exact recipients and content and confirms sending in InboxMCP. The AI has no approval override. Provider acceptance is not proof of recipient delivery; an uncertain result must not be automatically retried.
+Check `get_sending_status`, enable outgoing setup on the website if desired, and grant `email:send` only by ticking it, with its confirmation, on the consent page. The AI can prepare an immutable draft and share its review link. The signed-in owner reviews its exact recipients and content and confirms sending in InboxMCP. The AI has no approval override. Provider acceptance is not proof of recipient delivery; an uncertain result must not be automatically retried.
 
-[Full AI-readable reference](https://inboxmcp.ai/agent-setup.md) · [Support](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup) · [Discord community](https://discord.gg/juts7yc9f)
+[Full AI-readable reference](https://inboxmcp.ai/agent-setup.md) · [What's new](CHANGELOG.md) · [Support](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup) · [Discord community](https://discord.gg/juts7yc9f)

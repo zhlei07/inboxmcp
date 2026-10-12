@@ -1,0 +1,95 @@
+# What's new and feature status
+
+InboxMCP is a hosted service, so updates reach every account when they are deployed; there is nothing to install or upgrade. The MCP server still reports version **0.4.0**: the October 10–11 changes below were deployed without a new version number. This repository holds documentation only, not the server's source code.
+
+Status checked **13 October 2026**. Platform and directory review states keep the date of their last recorded check. Nothing here implies approval or endorsement by a platform.
+
+## Feature status
+
+### Live now
+
+| Feature | Since | Notes |
+| --- | --- | --- |
+| Independent mailbox collection over IMAP (TLS, port 993) | Beta launch | Runs without Grok, webhooks or an external state service. Collection is periodic, normally about every 60 seconds. |
+| Built-in processing progress for each AI connection | 4 Oct | `get_email_monitor_state` → `claim_email_batch` → `complete_email_batch`. No Notion page, Drive file or client cursor. |
+| Owner-confirmed outgoing email | 9 Oct (0.4.0) | Off by default. Needs SMTP setup, a separate `email:send` grant and the owner's confirmation of every exact draft. |
+| Per-permission consent | 10 Oct | The owner ticks each requested permission. Details below. |
+| Connect-time sign-in for Cursor, Grok Bot and Claude | 10 Oct | Anonymous `initialize` now receives the OAuth challenge, which is what starts these clients' sign-in. |
+| Grok Bot as a custom MCP server | 10 Oct | Connection verified on 10 October through Cursor's hosted client. Scheduled MCP processing in Grok Bot is not yet verified. |
+| Message-ID deduplication and `list_consumer_receipts` | 10 Oct | 14 MCP tools in total. |
+| Text of large IMAP messages | 10 Oct | Read selectively instead of headers only. |
+| Deferral reporting that never blocks new mail | 10 Oct | `retry_can_help`, `needs_owner_review` and `expired_deferred_events`, also shown on the dashboard. |
+| Pro plan | 10 Oct | US$10/month, unlimited mailboxes subject to fair use, with an automatic safeguard at 100 active mailboxes. |
+| Discord community | 11 Oct | [discord.gg/juts7yc9f](https://discord.gg/juts7yc9f), also linked from a dismissible dashboard card. |
+
+### In progress or waiting on a platform
+
+| Item | Current state | Still needed |
+| --- | --- | --- |
+| ChatGPT / OpenAI directory listing | Plugin 0.1.2 was recorded as *In review*, not published, at the last portal check (4 October). | OpenAI's review decision. |
+| ChatGPT Dot event-triggered runs | Server-side MCP Events (protocol `2026-07-28`) are live. One private account processed a synthetic event automatically on 7 October. | Mobile push, renewal beyond the first 24 hours and long-term reliability. Each account still needs its own check. |
+| Native Gmail and Microsoft mailbox authorization | Built and tested with synthetic provider responses. **Disabled in production.** | Provider app registration and review, followed by real authorization, collection and refresh tests. Until then, use IMAP with an app password. |
+| Cursor desktop | Cursor's documented localhost callback is accepted. A Cursor Marketplace application receipt exists; no decision was found at the 4 October check. | An end-to-end desktop test and the marketplace decision. |
+| Grok Bot scheduled processing | The MCP connection works (10 October). The optional webhook Routine has passed single synthetic and real replies. | A Routine or schedule that calls InboxMCP tools unattended, and batch delivery. |
+| Meta Muse | Application materials submitted; questionnaire under review. | Muse's review and an official event contract. No Muse connection is available yet. |
+| Claude wake-on-arrival | Not available on ordinary Claude plans. Scheduled tasks are the supported route. | A platform feature for arrival-triggered runs. |
+| Directory health checks | Since anonymous `initialize` requires OAuth, Glama's anonymous health check reports the latest test as not completed. Anonymous `ping` and `tools/list` still work. The [awesome-remote-mcp-servers PR #1126](https://github.com/punkpeye/awesome-remote-mcp-servers/pull/1126) is open. | A data-free health-check path that keeps the connect-time sign-in for real clients, and the PR review. |
+
+### Not currently supported
+
+POP3, attachment analysis, outgoing attachments, full-text historical mailbox search, arbitrary sender addresses and autonomous sending without owner confirmation.
+
+## Release notes
+
+### 10–11 October 2026 (server version 0.4.0)
+
+**Connecting your AI**
+
+- **Per-permission consent.** Any dynamically registered client may request `email:read`, `consumer-state:write`, `decisions:write` and `email:send`. The consent page shows a checkbox for each requested permission, and the grant is exactly what the owner leaves ticked. `email:read` is required. Progress and decisions start ticked. Sending starts unticked and needs an extra confirmation, and each actual send still needs the owner's approval of the exact draft. The previous read-only ceiling for new third-party registrations is retired.
+- **Existing grants never widen.** Grants issued under the earlier read-only ceiling stay read-only, and a refresh can only keep or narrow a grant. To add a permission, reconnect deliberately and approve it.
+- **Connect-time sign-in.** Anonymous `initialize` now returns the OAuth challenge. Cursor and Claude document that interactive sign-in starts from this challenge; Grok Bot's connection was verified with it on 10 October. The challenge again requests progress permission, so new Claude connections can use built-in progress.
+- **Native-app callbacks.** RFC 8252 loopback callbacks on any port, and custom schemes such as `cursor://`, are accepted, with stricter callback validation.
+- **Consent is submitted once.** A double click sends one approval. A request that was already used now shows a page saying the connection has probably succeeded, instead of a bare error.
+- Unknown well-formed scopes such as `offline_access` are ignored instead of failing the request.
+
+**Reading mail**
+
+- **Message-ID deduplication.** Within one mailbox, copies of the same message in other folders or Gmail labels, moves and resends no longer create new events, Grok deliveries or AI queue items. Messages with a missing or malformed Message-ID are never merged, and different mailboxes stay separate.
+- **New tool `list_consumer_receipts`** (`email:read`). Lists this connection's own completed events, newest first, without email bodies.
+- **Large IMAP messages.** Messages over 1 MiB, such as requests for quotation or invoices with PDF or Excel attachments, previously reached the AI as headers only. Their text parts are now read selectively, without setting the read flag or downloading attachments. A short list of attachment names, types and approximate sizes follows the text. Text cut by a size limit is marked `truncated`.
+- Partly read Gmail API text is reported as `truncated`, including messages already stored.
+
+**Processing progress**
+
+- Every claimed email reports `retry_can_help`. Agents defer an email only while a retry can help. Otherwise they decide from the sender, subject and any available text, and tell the owner when that cannot rule out something important.
+- `needs_owner_review` marks email that was deferred repeatedly or is close to retention removal.
+- If retention removes an email that this connection deferred, the event is reported once in `expired_deferred_events` and kept in a recent summary. It no longer blocks new mail.
+- The dashboard's connection card shows repeatedly deferred and expired-deferral counts, in English, Chinese and Spanish.
+
+**Outgoing email safety**
+
+- Drafts with RFC 2047 encoded words in recipient local parts or subjects are rejected, so a recipient or subject cannot look different on the review page from what is delivered. The built message must parse back to exactly the reviewed recipients before any connection opens.
+
+**Plans and billing**
+
+- **Pro** at US$10/month: unlimited mailboxes subject to fair use, with an automatic safeguard that stops new connections at 100 active mailboxes. When upgrading from Plus, Plus renewal stops automatically once the first Pro payment is verified. The remaining Plus period is not refunded.
+- Checkouts that were never paid are closed and hidden from the subscription list. An abandoned Pro checkout no longer blocks buying Plus.
+
+**Guides and community**
+
+- Grok Bot MCP setup was added to the setup guides. The privacy notice now covers Message-ID hashes, OAuth logs and the body-free expired-deferral notices.
+- Discord community launched, with a dismissible invitation card on the dashboard.
+
+### 9 October 2026: 0.4.0
+
+- Owner-confirmed outgoing email: SMTP setup, a separate `email:send` permission, immutable drafts, and sending only after the owner confirms the exact draft.
+- A dashboard checklist that guides the first successful email test.
+- Version 0.4.0 published to the official MCP Registry. Glama's anonymous discovery test passed; this predates the 10 October connect-time sign-in change.
+
+### Earlier in October 2026
+
+- **8 Oct:** retained IMAP placeholders are recovered in the background, and failed items are deferred without blocking an AI's queue.
+- **7 Oct:** a private ChatGPT Dot account processed a synthetic email event automatically, posted a chat reminder and saved progress.
+- **4 Oct:** built-in progress for each AI connection, with leases, partial acknowledgement and idempotent retries. Also: the server-side MCP Events extension and an optional Grok batch format. Claude Community connector visibility confirmed.
+
+Questions or feature requests: [Discord](https://discord.gg/juts7yc9f) or [support](https://inboxmcp.ai/support?utm_source=github&utm_medium=docs&utm_campaign=agent_setup).
