@@ -19,7 +19,7 @@ This public repository contains documentation and registry metadata, not the hos
 
 ## What's new
 
-Deployed on 10–11 October 2026. Full notes and the status of work in progress are in the [changelog](CHANGELOG.md).
+Deployed between 10 and 13 October 2026. Full notes and the status of work in progress are in the [changelog](CHANGELOG.md).
 
 - **Per-permission consent:** any client may request reading, progress, decisions and sending, and the owner ticks exactly what to grant. The earlier read-only ceiling for new third-party registrations is retired.
 - **Connect-time sign-in:** a new connection now receives the OAuth challenge that Cursor, Grok Bot and Claude use to start sign-in. Grok Bot works as a custom MCP server (verified 10 October).
@@ -27,8 +27,9 @@ Deployed on 10–11 October 2026. Full notes and the status of work in progress 
 - **Large emails:** messages over 1 MiB, such as invoices with attachments, now reach your AI with their text instead of headers only.
 - **Deferrals never block new mail,** and the dashboard shows email that needs your review.
 - **Pro plan** (US$10/month, unlimited mailboxes under fair use) and the [Discord community](https://discord.gg/juts7yc9f).
+- **13 October:** Claude connections can be offered sending at connect (unticked by default). Directory health checks are answered again, and Glama is healthy with 14 tools. Two MCP prompts, `set_up_email_monitoring` and `check_new_email`, are available.
 
-**In progress:** OpenAI directory review, native Gmail/Microsoft authorization (built, disabled in production), Muse review and the Cursor desktop end-to-end test. See the [status table](CHANGELOG.md#in-progress-or-waiting-on-a-platform).
+**In progress:** the updated Claude directory listing (in Anthropic's review), OpenAI directory review, native Gmail/Microsoft authorization (built, disabled in production), Muse review and the Cursor desktop end-to-end test. See the [status table](CHANGELOG.md#in-progress-or-waiting-on-a-platform).
 
 ## What it does
 
@@ -105,10 +106,10 @@ See the [website integration status](https://inboxmcp.ai/?utm_source=github&utm_
 ## Public discovery and directory health
 
 - **Official MCP Registry:** version **0.4.0** was confirmed active and latest on 9 October 2026. [Registry record](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.zhlei07%2Finboxmcp/versions/latest).
-- **Glama:** anonymous discovery passed in the publisher's screenshot on **9 October 2026 at 19:04:41 Singapore time (11:04:41 UTC)** with Authentication Type **None**. [Public listing](https://glama.ai/mcp/connectors/io.github.zhlei07/inboxmcp). That test predates the 10 October connect-time sign-in change; since then the listing reports its latest anonymous health check as not completed.
+- **Glama:** anonymous discovery passed in the publisher's screenshot on **9 October 2026 at 19:04:41 Singapore time (11:04:41 UTC)** with Authentication Type **None**. [Public listing](https://glama.ai/mcp/connectors/io.github.zhlei07/inboxmcp). After the 10 October connect-time sign-in change the check failed until 13 October, when directory health checks were answered again. Glama then reported InboxMCP as healthy with 14 tools (tested 13 October 00:13 UTC).
 - **Community directory:** the 9 October health check was supplied to the reviewer of [PR #1126](https://github.com/punkpeye/awesome-remote-mcp-servers/pull/1126#issuecomment-6080079090), which is still open.
 
-Since 10 October, anonymous `initialize` receives the OAuth challenge, so clients start sign-in at connect time. Anonymous `ping` and `tools/list` still return static metadata only, and resource/prompt listings are empty. All actual tool calls require OAuth and mailbox-scoped user authorization. A directory health check does not need access to the publisher's personal or company mailboxes. Every customer connects and authorizes their own mailboxes.
+Since 10 October, anonymous `initialize` receives the OAuth challenge, so clients start sign-in at connect time. Since 13 October, recognised directory health checks receive the static handshake instead. Anonymous `ping` and `tools/list` return static metadata only, and anonymous resource/prompt listings are empty. All actual tool calls require OAuth and mailbox-scoped user authorization. A directory health check does not need access to the publisher's personal or company mailboxes. Every customer connects and authorizes their own mailboxes.
 
 ## Fourteen MCP tools
 
@@ -130,6 +131,8 @@ Tool names may be namespaced by the client. Discover actual schemas before calli
 | `prepare_email_draft` | Create an immutable draft for owner review; requires `email:send`, does not send |
 | `get_email_draft` | Read this connection's draft and status; requires `email:send` |
 | `send_email` | Submit only an exact owner-confirmed draft; requires `email:send`, offers no approval override |
+
+Two static MCP prompts, `set_up_email_monitoring` and `check_new_email`, give clients that list connector prompts a starting point. They carry no account data and need the same permissions as the tools.
 
 Independent monitoring normally uses `get_email_monitor_state` → `claim_email_batch` → `complete_email_batch`. Do not use the legacy decision tool as another connection's checkpoint. Completing a batch does not prove a notification reached the user's device.
 

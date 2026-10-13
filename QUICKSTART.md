@@ -76,9 +76,9 @@ If a message is unreadable, defer it rather than recording it as successfully pr
 
 ## Directory health checks are not mailbox access
 
-Glama's anonymous connection test was confirmed successful in the publisher's screenshot on **9 October 2026 at 19:04:41 Singapore time (11:04:41 UTC)**, with Authentication Type set to **None**. That test predates the 10 October change below, and Glama now reports its latest anonymous health check as not completed.
+Glama's anonymous connection test was confirmed successful in the publisher's screenshot on **9 October 2026 at 19:04:41 Singapore time (11:04:41 UTC)**, with Authentication Type set to **None**. After the 10 October change below the check failed until 13 October. Since then recognised directory health checks get the static handshake again, and Glama reports InboxMCP as healthy with 14 tools.
 
-Since 10 October, anonymous `initialize` receives the OAuth challenge so that clients start sign-in at connect time. Anonymous discovery exposes only static metadata (`ping`, `tools/list` and empty resource/prompt catalogs). All actual tool calls still require OAuth and the user's selected-mailbox authorization. A directory does not need the publisher's real mailbox authorization to check discovery health.
+Since 10 October, anonymous `initialize` receives the OAuth challenge so that clients start sign-in at connect time. Since 13 October, an `initialize` from a recognised directory health check gets the static handshake instead. Anonymous discovery exposes only static metadata (`ping`, `tools/list` and empty resource/prompt catalogs). All actual tool calls still require OAuth and the user's selected-mailbox authorization. A directory does not need the publisher's real mailbox authorization to check discovery health.
 
 ## Optional outgoing mail
 

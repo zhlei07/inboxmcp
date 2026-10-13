@@ -1,6 +1,6 @@
 # What's new and feature status
 
-InboxMCP is a hosted service, so updates reach every account when they are deployed; there is nothing to install or upgrade. The MCP server still reports version **0.4.0**: the October 10–11 changes below were deployed without a new version number. This repository holds documentation only, not the server's source code.
+InboxMCP is a hosted service, so updates reach every account when they are deployed; there is nothing to install or upgrade. The MCP server still reports version **0.4.0**: the October 10–13 changes below were deployed without a new version number. This repository holds documentation only, not the server's source code.
 
 Status checked **13 October 2026**. Platform and directory review states keep the date of their last recorded check. Nothing here implies approval or endorsement by a platform.
 
@@ -21,6 +21,9 @@ Status checked **13 October 2026**. Platform and directory review states keep th
 | Deferral reporting that never blocks new mail | 10 Oct | `retry_can_help`, `needs_owner_review` and `expired_deferred_events`, also shown on the dashboard. |
 | Pro plan | 10 Oct | US$10/month, unlimited mailboxes subject to fair use, with an automatic safeguard at 100 active mailboxes. |
 | Discord community | 11 Oct | [discord.gg/juts7yc9f](https://discord.gg/juts7yc9f), also linked from a dismissible dashboard card. |
+| Sending offered at connect | 13 Oct | The connect-time challenge now requests `email:send`, so clients such as Claude can offer it. It starts unticked, needs its own confirmation, and every draft still needs the owner's approval. |
+| Directory health checks answered again | 13 Oct | Recognised directory health checks get a data-free `initialize`. Glama reports InboxMCP as healthy with 14 tools (tested 13 October 00:13 UTC). Every other client keeps the connect-time OAuth challenge. |
+| MCP prompts | 13 Oct | `set_up_email_monitoring` and `check_new_email`, for clients that list connector prompts. |
 
 ### In progress or waiting on a platform
 
@@ -33,13 +36,22 @@ Status checked **13 October 2026**. Platform and directory review states keep th
 | Grok Bot scheduled processing | The MCP connection works (10 October). The optional webhook Routine has passed single synthetic and real replies. | A Routine or schedule that calls InboxMCP tools unattended, and batch delivery. |
 | Meta Muse | Application materials submitted; questionnaire under review. | Muse's review and an official event contract. No Muse connection is available yet. |
 | Claude wake-on-arrival | Not available on ordinary Claude plans. Scheduled tasks are the supported route. | A platform feature for arrival-triggered runs. |
-| Directory health checks | Since anonymous `initialize` requires OAuth, Glama's anonymous health check reports the latest test as not completed. Anonymous `ping` and `tools/list` still work. The [awesome-remote-mcp-servers PR #1126](https://github.com/punkpeye/awesome-remote-mcp-servers/pull/1126) is open. | A data-free health-check path that keeps the connect-time sign-in for real clients, and the PR review. |
+| Claude directory listing | The live listing still describes the original six tools. An updated listing with all 14 tools and optional owner-confirmed sending was submitted for Anthropic's review on 13 October. | Anthropic's review; the live listing is unchanged until then. |
+| Community directory | Glama is healthy again (13 October). The [awesome-remote-mcp-servers PR #1126](https://github.com/punkpeye/awesome-remote-mcp-servers/pull/1126) is open. | The maintainer's review. |
 
 ### Not currently supported
 
 POP3, attachment analysis, outgoing attachments, full-text historical mailbox search, arbitrary sender addresses and autonomous sending without owner confirmation.
 
 ## Release notes
+
+### 13 October 2026 (server version 0.4.0)
+
+- **Sending can be offered at connect.** Claude and SDK clients request exactly the scope named in the connect-time challenge, which now includes `email:send`. Requesting is not granting: on the consent page sending and its confirmation start unticked, and each draft still needs the owner's approval in InboxMCP.
+- **Consent page guard.** Ticking only one of the sending permission and its confirmation now shows a hint instead of an error page. The page also says that InboxMCP does not create schedules, and where to set one up, when progress is requested.
+- **Directory health checks.** An `initialize` from a recognised directory health check (Glama, mcpbeat, or a client name containing "probe" or "uptime") gets the static handshake again. Cursor, Claude, Codex, ChatGPT and any unrecognised client keep the OAuth challenge they need to start sign-in. Glama now reports InboxMCP as healthy with 14 tools.
+- **MCP prompts.** `set_up_email_monitoring` (optional frequency, time zone and when to notify) asks the AI to create a recurring check with the built-in progress workflow, and `check_new_email` (optional focus) processes new mail once. They carry no account data and grant nothing.
+- **Mailbox providers.** The [support page](https://inboxmcp.ai/support?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#mailbox-providers) lists every IMAP preset, including Chinese personal and business providers, and the providers that cannot connect.
 
 ### 10–11 October 2026 (server version 0.4.0)
 
