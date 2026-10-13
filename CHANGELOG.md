@@ -30,8 +30,8 @@ Status checked **13 October 2026**. Platform and directory review states keep th
 
 | Item | Current state | Still needed |
 | --- | --- | --- |
-| ChatGPT / OpenAI directory listing | Plugin 0.1.2 was recorded as *In review*, not published, at the last portal check (4 October). | OpenAI's review decision. |
-| ChatGPT Dot event-triggered runs | Server-side MCP Events (protocol `2026-07-28`) are live. One private account processed a synthetic event automatically on 7 October. | Mobile push, renewal beyond the first 24 hours and long-term reliability. Each account still needs its own check. |
+| ChatGPT / OpenAI directory listing | Plugin 0.1.2 was still *In review*, not published, at the portal check on 13 October. A private plugin works without it. | OpenAI's review decision. |
+| ChatGPT Dot event-triggered runs | Live for anyone whose ChatGPT plan has dots, as a private plugin. One Pro account ran from 7 to 13 October with daily subscription renewal and 537 emails completed. | Mobile push and long-term reliability. Each account still needs its own check. |
 | Native Gmail and Microsoft mailbox authorization | Built and tested with synthetic provider responses. **Disabled in production.** | Provider app registration and review, followed by real authorization, collection and refresh tests. Until then, use IMAP with an app password. |
 | Cursor desktop | Cursor's documented localhost callback is accepted. A Cursor Marketplace application receipt exists; no decision was found at the 4 October check. | An end-to-end desktop test and the marketplace decision. |
 | Grok Bot scheduled processing | The MCP connection works (10 October). The optional webhook Routine has passed single synthetic and real replies. | A Routine or schedule that calls InboxMCP tools unattended, and batch delivery. |
@@ -48,6 +48,7 @@ POP3, attachment analysis, outgoing attachments, full-text historical mailbox se
 
 ### 13 October 2026 (server version 0.4.0)
 
+- **ChatGPT Dot for everyone with dots.** The [Dot guide](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#chatgpt-dot-email-assistant) now covers who can set it up (ChatGPT Pro outside the EEA, Switzerland and the UK, or Business Premium) and the current steps: Plugins → Add → Add custom MCP server, OAuth, Create as a plugin. It also reports a week of results from one Pro account. Dot should give every claimed email an outcome in the same run instead of keeping it open as a reminder.
 - **Sending can be offered at connect.** Claude and SDK clients request exactly the scope named in the connect-time challenge, which now includes `email:send`. Requesting is not granting: on the consent page sending and its confirmation start unticked, and each draft still needs the owner's approval in InboxMCP.
 - **Consent page guard.** Ticking only one of the sending permission and its confirmation now shows a hint instead of an error page. The page also says that InboxMCP does not create schedules, and where to set one up, when progress is requested.
 - **Directory health checks.** An `initialize` from a recognised directory health check (Glama, mcpbeat, or a client name containing "probe" or "uptime") gets the static handshake again. Cursor, Claude, Codex, ChatGPT and any unrecognised client keep the OAuth challenge they need to start sign-in. Glama now reports InboxMCP as healthy with 14 tools.
