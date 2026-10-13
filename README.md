@@ -27,7 +27,7 @@ Deployed between 10 and 13 October 2026. Full notes and the status of work in pr
 - **Large emails:** messages over 1 MiB, such as invoices with attachments, now reach your AI with their text instead of headers only.
 - **Deferrals never block new mail,** and the dashboard shows email that needs your review.
 - **Pro plan** (US$10/month, unlimited mailboxes under fair use) and the [Discord community](https://discord.gg/juts7yc9f).
-- **13 October:** Claude connections can be offered sending at connect (unticked by default). Directory health checks are answered again, and Glama is healthy with 14 tools. Two MCP prompts, `set_up_email_monitoring` and `check_new_email`, are available.
+- **13 October:** Claude connections can be offered sending at connect (unticked by default). Directory health checks are answered again, and Glama is healthy with 14 tools. Two MCP prompts, `set_up_email_monitoring` and `check_new_email`, are available. A newly added mailbox now starts collection and is ready to send by default, using the login you entered for receiving after a verified SMTP sign-in; existing mailboxes get one-click buttons.
 
 **In progress:** the updated Claude directory listing (in Anthropic's review), OpenAI directory review, native Gmail/Microsoft authorization (built, disabled in production), Muse review and the Cursor desktop end-to-end test. See the [status table](CHANGELOG.md#in-progress-or-waiting-on-a-platform).
 
@@ -58,7 +58,7 @@ InboxMCP collects new mail from the mailboxes you connect and makes authorized m
 | Optional outgoing drafts and sending | Separately approved `email:send`, in addition to reading |
 
 1. [Create or sign in to your account](https://app.inboxmcp.ai/app), add one mailbox through the current IMAP setup and verify its connection. Native provider authorization is an option only where the dashboard enables it.
-2. Explicitly turn on automatic collection for that mailbox. A connected mailbox and an enabled collection switch are different settings; check that synchronization succeeds.
+2. Automatic collection starts by default when you save the mailbox; untick it before saving if you want to start later. A connected mailbox and an enabled collection switch are different settings; check that synchronization succeeds.
 3. In your compatible AI client, connect the MCP endpoint, sign in and authorize only the intended mailboxes. For ongoing processing, authorize reading and built-in progress. **If the processing-progress selector appears**, choose independent progress for a new task/different AI, or resume the existing progress for the same AI task. Do not select Claude's progress when adding Dot as a separate monitor. The first progress-enabled connection creates progress automatically; a read-only connection has no progress selector. If no selector appears, continue normal authorization rather than treating its absence as an error.
 4. Use the dashboard's **Let your AI finish setup** request or the [AI-readable setup guide](https://inboxmcp.ai/agent-setup.md). Have the AI check the connection and configure its supported event subscription or scheduled task. Installation alone does not create an automatic check.
 5. After setup, send yourself a harmless test email with a clear action. Have the AI process it, check its original-email link and verify that a second check does not repeat the completed event. Verify any desired device notification separately.
@@ -79,10 +79,10 @@ Follow the [step-by-step quick start](QUICKSTART.md), or choose your platform:
 
 ## Optional outgoing email
 
-Sending is **off by default** and has three separate requirements:
+Sending has three separate requirements. Only the mailbox setup is on by default, and your AI cannot send without the other two:
 
-1. **Mailbox setup:** enable outgoing email in [Sending settings](https://app.inboxmcp.ai/app#outgoing-card). For IMAP mailboxes, explicitly provide SMTP settings using TLS on port 465 or STARTTLS on port 587; incoming passwords are not automatically reused. Native provider sending requires separate provider consent where available.
-2. **AI permission:** explicitly grant `email:send` for the selected mailboxes. Existing read grants and refresh tokens do not gain sending automatically.
+1. **Mailbox setup:** on by default for a newly added IMAP mailbox. InboxMCP derives the provider's SMTP server from its IMAP server (for example `imap.gmail.com` → `smtp.gmail.com`, TLS on port 465), signs in once with the login you entered for receiving, and stores it encrypted for sending. Untick **Also enable sending with this password** before saving to skip this. For a mailbox added earlier, choose **Use this mailbox’s receiving password** or **Enable sending for all my mailboxes** in [Sending settings](https://app.inboxmcp.ai/app#outgoing-card), or enter separate SMTP settings using TLS on port 465 or STARTTLS on port 587. If the provider refuses the receiving password for sending, nothing is stored. Native provider sending requires separate provider consent where available.
+2. **AI permission:** explicitly grant `email:send` for the selected mailboxes; it starts unticked on the consent page. Existing read grants and refresh tokens do not gain sending automatically.
 3. **Exact draft confirmation:** open the returned draft-review link, check From, To, Cc, Bcc, subject and the entire plain-text body, then choose **Confirm and send**. Preparing or opening a draft does not send it, and the AI cannot approve its own draft.
 
 The normal confirmation page submits the message directly. Provider acceptance does not prove recipient delivery. An uncertain result is never automatically retried; check with the provider before preparing another copy.

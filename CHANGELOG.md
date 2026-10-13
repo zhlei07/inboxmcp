@@ -12,7 +12,7 @@ Status checked **13 October 2026**. Platform and directory review states keep th
 | --- | --- | --- |
 | Independent mailbox collection over IMAP (TLS, port 993) | Beta launch | Runs without Grok, webhooks or an external state service. Collection is periodic, normally about every 60 seconds. |
 | Built-in processing progress for each AI connection | 4 Oct | `get_email_monitor_state` → `claim_email_batch` → `complete_email_batch`. No Notion page, Drive file or client cursor. |
-| Owner-confirmed outgoing email | 9 Oct (0.4.0) | Off by default. Needs SMTP setup, a separate `email:send` grant and the owner's confirmation of every exact draft. |
+| Owner-confirmed outgoing email | 9 Oct (0.4.0) | Needs mailbox sending (on by default for new IMAP mailboxes since 13 Oct), a separate `email:send` grant that starts unticked, and the owner's confirmation of every exact draft. |
 | Per-permission consent | 10 Oct | The owner ticks each requested permission. Details below. |
 | Connect-time sign-in for Cursor, Grok Bot and Claude | 10 Oct | Anonymous `initialize` now receives the OAuth challenge, which is what starts these clients' sign-in. |
 | Grok Bot as a custom MCP server | 10 Oct | Connection verified on 10 October through Cursor's hosted client. Scheduled MCP processing in Grok Bot is not yet verified. |
@@ -24,6 +24,7 @@ Status checked **13 October 2026**. Platform and directory review states keep th
 | Sending offered at connect | 13 Oct | The connect-time challenge now requests `email:send`, so clients such as Claude can offer it. It starts unticked, needs its own confirmation, and every draft still needs the owner's approval. |
 | Directory health checks answered again | 13 Oct | Recognised directory health checks get a data-free `initialize`. Glama reports InboxMCP as healthy with 14 tools (tested 13 October 00:13 UTC). Every other client keeps the connect-time OAuth challenge. |
 | MCP prompts | 13 Oct | `set_up_email_monitoring` and `check_new_email`, for clients that list connector prompts. |
+| Collection and sending on by default | 13 Oct | A newly added IMAP mailbox starts collecting and, after a verified SMTP sign-in with the same login, can send. Either can be unticked before saving. Existing mailboxes keep their settings and get one-click buttons. |
 
 ### In progress or waiting on a platform
 
@@ -51,6 +52,7 @@ POP3, attachment analysis, outgoing attachments, full-text historical mailbox se
 - **Consent page guard.** Ticking only one of the sending permission and its confirmation now shows a hint instead of an error page. The page also says that InboxMCP does not create schedules, and where to set one up, when progress is requested.
 - **Directory health checks.** An `initialize` from a recognised directory health check (Glama, mcpbeat, or a client name containing "probe" or "uptime") gets the static handshake again. Cursor, Claude, Codex, ChatGPT and any unrecognised client keep the OAuth challenge they need to start sign-in. Glama now reports InboxMCP as healthy with 14 tools.
 - **MCP prompts.** `set_up_email_monitoring` (optional frequency, time zone and when to notify) asks the AI to create a recurring check with the built-in progress workflow, and `check_new_email` (optional focus) processes new mail once. They carry no account data and grant nothing.
+- **Collection and sending on by default for new mailboxes.** Adding a mailbox now starts collection and turns on sending in one step. InboxMCP derives the SMTP server from the IMAP server within the same domain (for example `imap.qq.com` → `smtp.qq.com`, port 465; iCloud uses STARTTLS on 587), verifies a sign-in with the receiving login and stores an encrypted copy. If the provider refuses it or the server is unknown, nothing is stored and receiving is unaffected; Microsoft mailboxes are excluded because they no longer accept passwords. Existing mailboxes are not changed: the Send email card offers **Use this mailbox’s receiving password** and **Enable sending for all my mailboxes**. Your AI still needs `email:send`, which starts unticked, and each draft still needs your confirmation. The service privacy notice and terms describe the change.
 - **Mailbox providers.** The [support page](https://inboxmcp.ai/support?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#mailbox-providers) lists every IMAP preset, including Chinese personal and business providers, and the providers that cannot connect.
 
 ### 10–11 October 2026 (server version 0.4.0)
