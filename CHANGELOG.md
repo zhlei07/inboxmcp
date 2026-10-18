@@ -2,7 +2,7 @@
 
 InboxMCP is a hosted service, so updates reach every account when they are deployed; there is nothing to install or upgrade. The MCP server still reports version **0.4.0**: the October 10–13 changes below were deployed without a new version number. This repository holds documentation only, not the server's source code.
 
-Status checked **13 October 2026**. Platform and directory review states keep the date of their last recorded check. Nothing here implies approval or endorsement by a platform.
+Status checked **19 October 2026**. Platform and directory review states keep the date of their last recorded check. Nothing here implies approval or endorsement by a platform.
 
 ## Feature status
 
@@ -24,21 +24,23 @@ Status checked **13 October 2026**. Platform and directory review states keep th
 | Sending offered at connect | 13 Oct | The connect-time challenge now requests `email:send`, so clients such as Claude can offer it. It starts unticked, needs its own confirmation, and every draft still needs the owner's approval. |
 | Directory health checks answered again | 13 Oct | Recognised directory health checks get a data-free `initialize`. Glama reports InboxMCP as healthy with 14 tools (tested 13 October 00:13 UTC). Every other client keeps the connect-time OAuth challenge. |
 | MCP prompts | 13 Oct | `set_up_email_monitoring` and `check_new_email`, for clients that list connector prompts. |
+| Outlook and Microsoft 365 with Microsoft sign-in | 17 Oct | **Connect Outlook / Microsoft 365** in the dashboard; no app password. Work tenants may need their administrator's approval. New mail is collected about every minute. |
+| Change an AI connection's mailboxes in place | 17 Oct | Tick or untick mailboxes under AI connections; the agent sees the change on its next request, without reconnecting. |
 | Collection and sending on by default | 13 Oct | A newly added IMAP mailbox starts collecting and, after a verified SMTP sign-in with the same login, can send. Either can be unticked before saving. Existing mailboxes keep their settings and get one-click buttons. |
 
 ### In progress or waiting on a platform
 
 | Item | Current state | Still needed |
 | --- | --- | --- |
-| ChatGPT / OpenAI directory listing | Plugin 0.1.2 was still *In review*, not published, at the portal check on 13 October. A private plugin works without it. | OpenAI's review decision. |
+| ChatGPT / OpenAI directory listing | Plugin 0.1.2 was still *In review*, not published, at the portal check on 19 October. A private plugin works without it. | OpenAI's review decision. |
 | ChatGPT Dot event-triggered runs | Live for anyone whose ChatGPT plan has dots, as a private plugin. One Pro account ran from 7 to 13 October with daily subscription renewal and 537 emails completed. | Mobile push and long-term reliability. Each account still needs its own check. |
-| Native Gmail and Microsoft mailbox authorization | Built and tested with synthetic provider responses. **Disabled in production.** | Provider app registration and review, followed by real authorization, collection and refresh tests. Until then, use IMAP with an app password. |
-| Cursor desktop | Cursor's documented localhost callback is accepted. A Cursor Marketplace application receipt exists; no decision was found at the 4 October check. | An end-to-end desktop test and the marketplace decision. |
+| Native Gmail sign-in | Built and tested with synthetic provider responses. **Not enabled in production.** (Microsoft sign-in is live since 17 October.) | Google app registration and review, followed by real authorization, collection and refresh tests. Until then, Gmail uses IMAP with an app password. |
+| Cursor Marketplace | Cursor web and Cursor Desktop (localhost callback) both completed sign-in and read mail on 18 October. The Marketplace application from 2 October had no decision at the 19 October check. | The marketplace decision. |
 | Grok Bot scheduled processing | The MCP connection works (10 October). The optional webhook Routine has passed single synthetic and real replies. | A Routine or schedule that calls InboxMCP tools unattended, and batch delivery. |
 | Meta Muse | Application materials submitted; questionnaire under review. | Muse's review and an official event contract. No Muse connection is available yet. |
 | Claude wake-on-arrival | Not available on ordinary Claude plans. Scheduled tasks are the supported route. | A platform feature for arrival-triggered runs. |
-| Claude directory listing | The live listing still describes the original six tools. An updated listing with all 14 tools and optional owner-confirmed sending was submitted for Anthropic's review on 13 October. | Anthropic's review; the live listing is unchanged until then. |
-| Community directory | Glama is healthy again (13 October). The [awesome-remote-mcp-servers PR #1126](https://github.com/punkpeye/awesome-remote-mcp-servers/pull/1126) is open. | The maintainer's review. |
+| Claude directory listing | The live listing still describes the original six tools. An updated listing with all 14 tools and optional owner-confirmed sending was submitted for Anthropic's review on 13 October and was still in review on 19 October. | Anthropic's review; the live listing is unchanged until then. |
+| Community directory | Glama is healthy (tested 18 October, TDQS A). InboxMCP is listed in [awesome-remote-mcp-servers](https://github.com/punkpeye/awesome-remote-mcp-servers) since 15 October (PR #1126 merged). | Nothing pending. |
 
 ### Not currently supported
 

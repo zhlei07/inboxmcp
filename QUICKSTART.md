@@ -13,7 +13,7 @@ No local server deployment is required. Keep the endpoint exactly as shown; do n
 ## 1. Connect and collect
 
 1. [Open InboxMCP](https://inboxmcp.ai/?utm_source=github&utm_medium=docs&utm_campaign=agent_setup) and create or sign in to your account.
-2. Add a mailbox in the [dashboard](https://app.inboxmcp.ai/app). The current public setup uses supported IMAP providers with TLS on port 993; an app password or provider-specific client password may be required. Native Gmail/Microsoft authorization is usable only if the dashboard actually offers it. Enter credentials only on the provider or InboxMCP website, never in an AI chat.
+2. Add a mailbox in the [dashboard](https://app.inboxmcp.ai/app). The current public setup uses supported IMAP providers with TLS on port 993; an app password or provider-specific client password may be required. Outlook.com, Hotmail, Live and Microsoft 365 use **Connect Outlook / Microsoft 365** (Microsoft sign-in, no app password). Enter credentials only on the provider or InboxMCP website, never in an AI chat.
 3. Collection and sending start by default when you save the mailbox; untick either one first if you don't want it yet. Check that synchronization succeeds. Mailbox collection works independently of Grok delivery.
 4. Save the preferences you want your AI to consider when reviewing mail.
 

@@ -29,7 +29,7 @@ Deployed between 10 and 13 October 2026. Full notes and the status of work in pr
 - **Pro plan** (US$10/month, unlimited mailboxes under fair use) and the [Discord community](https://discord.gg/juts7yc9f).
 - **13 October:** Claude connections can be offered sending at connect (unticked by default). Directory health checks are answered again, and Glama is healthy with 14 tools. Two MCP prompts, `set_up_email_monitoring` and `check_new_email`, are available. A newly added mailbox now starts collection and is ready to send by default, using the login you entered for receiving after a verified SMTP sign-in; existing mailboxes get one-click buttons.
 
-**In progress:** the updated Claude directory listing (in Anthropic's review), OpenAI directory review, native Gmail/Microsoft authorization (built, disabled in production), Muse review and the Cursor desktop end-to-end test. See the [status table](CHANGELOG.md#in-progress-or-waiting-on-a-platform).
+**In progress:** the updated Claude directory listing (in Anthropic's review), OpenAI directory review, native Gmail sign-in (built, not enabled yet), Muse review and the Cursor Marketplace review. See the [status table](CHANGELOG.md#in-progress-or-waiting-on-a-platform).
 
 ## What it does
 
@@ -39,7 +39,7 @@ InboxMCP collects new mail from the mailboxes you connect and makes authorized m
 
 - **Independent collection.** Collection works without a Grok account, webhook or external state service. Grok delivery is a separate optional setting.
 - **Read-only incoming access.** Reading does not send, delete, move or mark source messages read. Optional outgoing mail has separate controls described below.
-- **Existing mailboxes.** Use a supported provider preset or a publicly reachable IMAP server with certificate-verified TLS on port 993. An app password or provider-specific client password may be required. Native Gmail and Microsoft authorization is available only where the deployment enables it.
+- **Existing mailboxes.** Use a supported provider preset or a publicly reachable IMAP server with certificate-verified TLS on port 993. An app password or provider-specific client password may be required. Outlook.com, Hotmail, Live and Microsoft 365 connect with Microsoft sign-in instead (**Connect Outlook / Microsoft 365** in the dashboard); a work account may need its administrator's approval.
 - **Mailbox-scoped authorization.** Choose the mailboxes each AI connection may access through OAuth with PKCE. New mailboxes are not added to old grants automatically.
 - **Built-in progress for each connection.** With `consumer-state:write` granted at consent, each AI connection has its own checkpoint and batch acknowledgements in InboxMCP. No Notion page or external state file is needed. Completed events are tracked; unfinished events remain pending. A failure between analysis and acknowledgement can still cause repeated processing.
 - **Useful context.** Batch results include saved preferences and an InboxMCP view link for each mail record. Incomplete or unavailable messages are identified rather than presented as complete.
