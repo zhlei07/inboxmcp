@@ -11,7 +11,7 @@ Connect your existing mailboxes to your own AI assistant, with built-in processi
 <a href="QUICKSTART.md">Quick start</a> ·
 <a href="https://inboxmcp.ai/support.html?utm_source=github&amp;utm_medium=docs&amp;utm_campaign=agent_setup">Setup guides</a> ·
 <a href="https://claude.ai/directory/inboxmcp">Claude directory</a> ·
-<a href="https://discord.gg/juts7yc9f">Discord community</a>
+<a href="https://discord.gg/FkRtHzccTq">Discord community</a>
 </p>
 
 **Hosted service 0.4.0 · documentation updated 13 October 2026 · limited public beta.** See [what's new and feature status](CHANGELOG.md).
@@ -26,7 +26,7 @@ Deployed between 10 and 13 October 2026. Full notes and the status of work in pr
 - **Fewer duplicates:** copies of one message in other folders or Gmail labels no longer create new events. A new `list_consumer_receipts` tool shows what this connection has completed.
 - **Large emails:** messages over 1 MiB, such as invoices with attachments, now reach your AI with their text instead of headers only.
 - **Deferrals never block new mail,** and the dashboard shows email that needs your review.
-- **Pro plan** (US$10/month, unlimited mailboxes under fair use) and the [Discord community](https://discord.gg/juts7yc9f).
+- **Pro plan** (US$10/month, unlimited mailboxes under fair use) and the [Discord community](https://discord.gg/FkRtHzccTq).
 - **13 October:** Claude connections can be offered sending at connect (unticked by default). Directory health checks are answered again, and Glama is healthy with 14 tools. Two MCP prompts, `set_up_email_monitoring` and `check_new_email`, are available. A newly added mailbox now starts collection and is ready to send by default, using the login you entered for receiving after a verified SMTP sign-in; existing mailboxes get one-click buttons.
 
 **In progress:** the updated Claude directory listing (in Anthropic's review), OpenAI directory review, native Gmail sign-in (built, not enabled yet), Muse review and the Cursor Marketplace review. See the [status table](CHANGELOG.md#in-progress-or-waiting-on-a-platform).
@@ -160,8 +160,8 @@ The earlier videos illustrate the incoming-mail workflow; they do not demonstrat
 
 ## Community
 
-Ask questions, share setups and suggest features in the [InboxMCP Discord](https://discord.gg/juts7yc9f). Never post passwords, tokens or email contents there; for account-specific problems, email support instead.
+Ask questions, share setups and suggest features in the [InboxMCP Discord](https://discord.gg/FkRtHzccTq). Never post passwords, tokens or email contents there; for account-specific problems, email support instead.
 
 ## Links
 
-[Privacy](https://app.inboxmcp.ai/privacy) · [Terms](https://inboxmcp.ai/terms.html) · [Support](https://inboxmcp.ai/support) · [Discord](https://discord.gg/juts7yc9f) · Operated by MARTHA TRADE PTE. LTD. · dylan@martha-trade.com
+[Privacy](https://app.inboxmcp.ai/privacy) · [Terms](https://inboxmcp.ai/terms.html) · [Support](https://inboxmcp.ai/support) · [Discord](https://discord.gg/FkRtHzccTq) · Operated by MARTHA TRADE PTE. LTD. · dylan@martha-trade.com
