@@ -1,8 +1,8 @@
 # What's new and feature status
 
-InboxMCP is a hosted service, so updates reach every account when they are deployed; there is nothing to install or upgrade. The MCP server still reports version **0.4.0**: the October 10–13 changes below were deployed without a new version number. This repository holds documentation only, not the server's source code.
+InboxMCP is a hosted service, so updates reach every account when they are deployed; there is nothing to install or upgrade. The MCP server still reports version **0.4.0**: the changes since 10 October were deployed without a new version number. This repository holds documentation only, not the server's source code.
 
-Status checked **19 October 2026**. Platform and directory review states keep the date of their last recorded check. Nothing here implies approval or endorsement by a platform.
+Status checked **16 November 2026**; platform and directory review states were last checked on 14 November. Platform and directory review states keep the date of their last recorded check. Nothing here implies approval or endorsement by a platform.
 
 ## Feature status
 
@@ -16,37 +16,80 @@ Status checked **19 October 2026**. Platform and directory review states keep th
 | Per-permission consent | 10 Oct | The owner ticks each requested permission. Details below. |
 | Connect-time sign-in for Cursor, Grok Bot and Claude | 10 Oct | Anonymous `initialize` now receives the OAuth challenge, which is what starts these clients' sign-in. |
 | Grok Bot as a custom MCP server | 10 Oct | Connection verified on 10 October through Cursor's hosted client. Scheduled MCP processing in Grok Bot is not yet verified. |
-| Message-ID deduplication and `list_consumer_receipts` | 10 Oct | 14 MCP tools in total. |
+| Message-ID deduplication and `list_consumer_receipts` | 10 Oct | 14 MCP tools at the time (17 since 23 October). |
 | Text of large IMAP messages | 10 Oct | Read selectively instead of headers only. |
 | Deferral reporting that never blocks new mail | 10 Oct | `retry_can_help`, `needs_owner_review` and `expired_deferred_events`, also shown on the dashboard. |
 | Pro plan | 10 Oct | US$10/month, unlimited mailboxes subject to fair use, with an automatic safeguard at 100 active mailboxes. |
-| Discord community | 11 Oct | [discord.gg/juts7yc9f](https://discord.gg/juts7yc9f), also linked from a dismissible dashboard card. |
+| Discord community | 11 Oct | [discord.gg/FkRtHzccTq](https://discord.gg/FkRtHzccTq), also linked from a dismissible dashboard card. |
 | Sending offered at connect | 13 Oct | The connect-time challenge now requests `email:send`, so clients such as Claude can offer it. It starts unticked, needs its own confirmation, and every draft still needs the owner's approval. |
 | Directory health checks answered again | 13 Oct | Recognised directory health checks get a data-free `initialize`. Glama reports InboxMCP as healthy with 14 tools (tested 13 October 00:13 UTC). Every other client keeps the connect-time OAuth challenge. |
 | MCP prompts | 13 Oct | `set_up_email_monitoring` and `check_new_email`, for clients that list connector prompts. |
 | Outlook and Microsoft 365 with Microsoft sign-in | 17 Oct | **Connect Outlook / Microsoft 365** in the dashboard; no app password. Work tenants may need their administrator's approval. New mail is collected about every minute. |
 | Change an AI connection's mailboxes in place | 17 Oct | Tick or untick mailboxes under AI connections; the agent sees the change on its next request, without reconnecting. |
 | Collection and sending on by default | 13 Oct | A newly added IMAP mailbox starts collecting and, after a verified SMTP sign-in with the same login, can send. Either can be unticked before saving. Existing mailboxes keep their settings and get one-click buttons. |
+| History search and attachment download | 23 Oct | `search_emails`, `read_search_result` and `fetch_attachment` (up to 5 MB). Every folder except Sent and Drafts is searched at the provider. 17 MCP tools in total. |
+| Grok Bot sign-in fix | 28 Oct | Clicking Allow in Grok Bot completes the connection. |
+| ChatGPT plugin directory | 29 Oct | Public plugin; version 0.4.0 with all 17 tools listed by 14 November. [ChatGPT guide](https://inboxmcp.ai/support?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#chatgpt-email-assistant). |
+| Problems reported once, only when they persist | 29 Oct | A collection error reaches the AI after about 10 minutes of failed polls (a refused login after 3), flagged `notify_owner` once and again after 24 hours if unresolved. |
+| Sliding connection lifetime | 29 Oct | Each token refresh restarts the 30-day window; an idle connection still expires. |
+| Updated Claude directory listing | 30 Oct | All 17 tools and optional owner-confirmed sending. |
+| View links on search results | 30 Oct | `read_search_result` returns `view_url` when InboxMCP retains its own copy, otherwise null. |
+| Send confirmation in the AI client | 30 Oct | Clients on MCP `2026-07-28` with form elicitation, such as Claude Code, show the exact draft in the conversation. Per-connection switch, on by default. `sent_check` looks for the sent copy. |
+| Parallel collection | 31 Oct | Up to 12 mailboxes at once, at most 6 per mail server, so each mailbox is checked about every minute. |
+| Backups without email bodies | 31 Oct | Bodies, event payloads and drafts are left out of backups. |
+| Chinese mail and QQ login fixes | 5 and 10 Nov | Long Tencent Exmail messages, large emails whose gb2312 headers carry GBK text, and refused QQ logins (now `login_rejected`). |
 
 ### In progress or waiting on a platform
 
 | Item | Current state | Still needed |
 | --- | --- | --- |
-| ChatGPT / OpenAI directory listing | Plugin 0.1.2 was still *In review*, not published, at the portal check on 19 October. A private plugin works without it. | OpenAI's review decision. |
+| ChatGPT / OpenAI directory listing | Published: InboxMCP is in the ChatGPT plugin directory (0.4.0, 17 tools). Version 0.5.0, with skills and a setup guide, has been in review since 14 November. | OpenAI's decision on 0.5.0. |
 | ChatGPT Dot event-triggered runs | Live for anyone whose ChatGPT plan has dots, as a private plugin. One Pro account ran from 7 to 13 October with daily subscription renewal and 537 emails completed. | Mobile push and long-term reliability. Each account still needs its own check. |
 | Native Gmail sign-in | Built and tested with synthetic provider responses. **Not enabled in production.** (Microsoft sign-in is live since 17 October.) | Google app registration and review, followed by real authorization, collection and refresh tests. Until then, Gmail uses IMAP with an app password. |
-| Cursor Marketplace | Cursor web and Cursor Desktop (localhost callback) both completed sign-in and read mail on 18 October. The Marketplace application from 2 October had no decision at the 19 October check. | The marketplace decision. |
+| Cursor Marketplace | Cursor web and Cursor Desktop both completed sign-in and read mail on 18 October. Not listed yet; the application was resubmitted on 14 November with a plugin package (17 tools, three skills). | The marketplace decision. |
 | Grok Bot scheduled processing | The MCP connection works (10 October). The optional webhook Routine has passed single synthetic and real replies. | A Routine or schedule that calls InboxMCP tools unattended, and batch delivery. |
-| Meta Muse | Application materials submitted; questionnaire under review. | Muse's review and an official event contract. No Muse connection is available yet. |
+| Meta Muse | Application materials submitted; no review decision as of 14 November. No Muse connection is available yet. | Muse's review and an official event contract. |
 | Claude wake-on-arrival | Not available on ordinary Claude plans. Scheduled tasks are the supported route. | A platform feature for arrival-triggered runs. |
-| Claude directory listing | The live listing still describes the original six tools. An updated listing with all 14 tools and optional owner-confirmed sending was submitted for Anthropic's review on 13 October and was still in review on 19 October. | Anthropic's review; the live listing is unchanged until then. |
-| Community directory | Glama is healthy (tested 18 October, TDQS A). InboxMCP is listed in [awesome-remote-mcp-servers](https://github.com/punkpeye/awesome-remote-mcp-servers) since 15 October (PR #1126 merged). | Nothing pending. |
+| Community directory | Glama is healthy (checked 14 November). InboxMCP is listed in [awesome-remote-mcp-servers](https://github.com/punkpeye/awesome-remote-mcp-servers) since 15 October (PR #1126 merged). | Nothing pending. |
 
 ### Not currently supported
 
-POP3, attachment analysis, outgoing attachments, full-text historical mailbox search, arbitrary sender addresses and autonomous sending without owner confirmation.
+POP3, attachment analysis (your AI can download an attachment of up to 5 MB), outgoing attachments, arbitrary sender addresses and autonomous sending without owner confirmation.
 
 ## Release notes
+
+### 17 October – 16 November 2026 (server version 0.4.0)
+
+**ChatGPT**
+
+- **In the ChatGPT plugin directory** since 29 October; version 0.4.0, with all 17 tools, was listed by 14 November. Search for InboxMCP under Plugins, connect, and ask "Check my email and tell me what needs a reply"; ChatGPT can schedule a daily check.
+- The website and dashboard now send ChatGPT users to the [public plugin guide](https://inboxmcp.ai/support?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#chatgpt-email-assistant) (14 November). ChatGPT Dot keeps its own private-plugin guide.
+
+**Reading mail**
+
+- **Outlook and Microsoft 365** connect with Microsoft sign-in (17 October), and an AI connection's mailboxes can be changed in place.
+- **History search** (23 October): `search_emails` searches the whole history of authorized mailboxes at the provider (IMAP or Microsoft Graph), `read_search_result` opens a result without marking it read, and `fetch_attachment` downloads one attachment of up to 5 MB. On Aliyun, which cannot search message text, subjects and senders are matched and `match_scope` says so.
+- **View links on search results** (30 October): a result links to InboxMCP's own copy when one exists, so an AI no longer has a reason to build a link itself.
+- **Parallel collection** (31 October): due mailboxes are polled on up to 12 lanes, at most 6 per mail server, so each mailbox is checked about every minute.
+- **Tencent Exmail and Feishu:** messages stored with headers only were re-read (28 October), and an Exmail body slightly longer than its reported size no longer stalls a folder (5 November).
+- **Large Chinese emails** (10 November): a gb2312-labelled header carrying GBK characters no longer stalls its folder; such text is decoded with gb18030.
+
+**Connections**
+
+- **Grok Bot sign-in** (28 October): clicking Allow completes the connection.
+- **Refused logins are named** (28 October, 10 November): NetEase and QQ Mail refusals are reported as `login_rejected`, with a 6-hour backoff and an **Update password or authorization code** button, instead of a generic sync error.
+- **Problems reported once** (29 October): collection errors reach the AI only after they persist, and agent-facing responses flag each owner action with `notify_owner` once, again after 24 hours if it is still unresolved. The dashboard always shows the current state.
+- **Sliding 30-day window** (29 October): each token refresh restarts it, so a connection in use no longer expires on day 30.
+- Rate limits now count per visitor, and token refreshes per connection (31 October).
+
+**Outgoing email**
+
+- **Confirm in the AI client** (30 October): on MCP `2026-07-28` with form elicitation, such as Claude Code, `send_email` shows the exact draft as a form in the conversation and sends only when that form is accepted unchanged. Other clients keep the InboxMCP review page. The dashboard has a per-connection switch, on by default.
+- **`sent_check`:** after an accepted or uncertain send, InboxMCP looks for the message in the Sent folder, read-only.
+
+**Privacy**
+
+- **Backups without email content** (31 October): message bodies, event payloads and drafts are left out of backups. A restored message without a body is marked as unavailable, to be read in the original mailbox.
 
 ### 13 October 2026 (server version 0.4.0)
 
@@ -112,4 +155,4 @@ POP3, attachment analysis, outgoing attachments, full-text historical mailbox se
 - **7 Oct:** a private ChatGPT Dot account processed a synthetic email event automatically, posted a chat reminder and saved progress.
 - **4 Oct:** built-in progress for each AI connection, with leases, partial acknowledgement and idempotent retries. Also: the server-side MCP Events extension and an optional Grok batch format. Claude Community connector visibility confirmed.
 
-Questions or feature requests: [Discord](https://discord.gg/juts7yc9f) or [support](https://inboxmcp.ai/support?utm_source=github&utm_medium=docs&utm_campaign=agent_setup).
+Questions or feature requests: [Discord](https://discord.gg/FkRtHzccTq) or [support](https://inboxmcp.ai/support?utm_source=github&utm_medium=docs&utm_campaign=agent_setup).

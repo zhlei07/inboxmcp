@@ -26,10 +26,11 @@ Use the platform-specific guide below. A compatible remote MCP client connects t
 | AI / client | Guide and expected behavior |
 | --- | --- |
 | [Claude](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#claude-email-assistant) | Connect the published connector, then verify a supported Scheduled task. Incoming mail does not directly wake Claude. |
-| [ChatGPT / Dot](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#chatgpt-dot-email-assistant) | Works today for anyone whose ChatGPT plan has dots (Pro outside the EEA, Switzerland and the UK, or Business Premium): add InboxMCP as a private plugin on ChatGPT web (Plugins → Add → Add custom MCP server). No directory listing needed. |
+| [ChatGPT](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#chatgpt-email-assistant) | Search for InboxMCP in the ChatGPT plugin directory (Plugins), connect and sign in, then ask "Check my email and tell me what needs a reply." For a daily check, ask ChatGPT to schedule it. |
+| [ChatGPT Dot](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#chatgpt-dot-email-assistant) | For ChatGPT plans with dots (Pro outside the EEA, Switzerland and the UK, or Business Premium): add InboxMCP as a private plugin on ChatGPT web (Plugins → Add → Add custom MCP server) so Dot runs on each new email. |
 | [Grok Bot](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#grok-email-assistant) | Add InboxMCP as a custom MCP server from a Bot chat and sign in with OAuth (verified 10 October). Optional webhook delivery to a Routine is a separate setting. |
 | [Muse](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#muse-email-assistant) | Follow the current availability status. No working public Muse connection or event delivery is claimed while review is pending. |
-| [Cursor / other MCP clients](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#other-mcp-clients) | Use compatible remote HTTP OAuth. You choose each permission on the consent page. Grok Bot's connection through Cursor's hosted client was verified on 10 October; the Cursor desktop flow is not yet verified end to end. |
+| [Cursor / other MCP clients](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#other-mcp-clients) | Use compatible remote HTTP OAuth. You choose each permission on the consent page. Cursor web and Cursor Desktop both completed sign-in and read mail on 18 October. Grok Bot signs in through Cursor's hosted client. |
 
 **If the processing-progress selector appears**, choose the appropriate option:
 
@@ -84,4 +85,4 @@ Since 10 October, anonymous `initialize` receives the OAuth challenge so that cl
 
 Check `get_sending_status`. A newly added IMAP mailbox is ready to send by default; for an earlier mailbox, turn sending on in the dashboard with one click. Grant `email:send` only by ticking it, with its confirmation, on the consent page. The AI can prepare an immutable draft and share its review link. The signed-in owner reviews its exact recipients and content and confirms sending in InboxMCP. The AI has no approval override. Provider acceptance is not proof of recipient delivery; an uncertain result must not be automatically retried.
 
-[Full AI-readable reference](https://inboxmcp.ai/agent-setup.md) · [What's new](CHANGELOG.md) · [Support](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup) · [Discord community](https://discord.gg/juts7yc9f)
+[Full AI-readable reference](https://inboxmcp.ai/agent-setup.md) · [What's new](CHANGELOG.md) · [Support](https://inboxmcp.ai/support.html?utm_source=github&utm_medium=docs&utm_campaign=agent_setup) · [Discord community](https://discord.gg/FkRtHzccTq)
