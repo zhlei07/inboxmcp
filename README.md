@@ -14,22 +14,24 @@ Connect your existing mailboxes to your own AI assistant, with built-in processi
 <a href="https://discord.gg/FkRtHzccTq">Discord community</a>
 </p>
 
-**Hosted service 0.4.0 · documentation updated 16 November 2026 · limited public beta.** See [what's new and feature status](CHANGELOG.md).
+**Hosted service 0.4.0 · documentation updated 20 November 2026 · limited public beta.** See [what's new and feature status](CHANGELOG.md).
 This public repository contains documentation and registry metadata, not the hosted server's source code. A service release or registry entry does not mean a platform has approved its directory listing or tested every new capability.
 
 ## What's new
 
-Deployed between 17 October and 16 November 2026. Full notes and the status of work in progress are in the [changelog](CHANGELOG.md).
+Deployed between 16 and 20 November 2026. Full notes, earlier updates and the status of work in progress are in the [changelog](CHANGELOG.md).
 
-- **ChatGPT plugin directory:** InboxMCP is listed. Search for InboxMCP under Plugins in ChatGPT, connect, and ask "Check my email and tell me what needs a reply"; ChatGPT can schedule a daily check. ChatGPT Dot stays available as a private plugin.
-- **History search:** `search_emails`, `read_search_result` and `fetch_attachment` search the whole history of authorized mailboxes at the provider and download one attachment of up to 5 MB. Search results link to InboxMCP's own copy when it has one. 17 tools in total.
-- **Outlook and Microsoft 365** connect with Microsoft sign-in, and an AI connection's mailboxes can be changed in place.
-- **Confirm sends in the AI client:** clients that support in-chat confirmation, such as Claude Code, show the exact draft as a form in the conversation; other clients keep the InboxMCP review page. After sending, `sent_check` looks for the copy in the Sent folder.
-- **Faster collection:** mailboxes are polled in parallel, so each one is checked about every minute. Backups no longer contain email bodies.
-- **Fewer false alarms:** a mailbox problem reaches the AI only when it persists, and only once. A connection stays authorized while it is used at least once every 30 days.
-- **Fixes:** Grok Bot sign-in (28 October); Tencent Exmail and Feishu bodies (28 October and 5 November); large Chinese emails whose gb2312 headers carry GBK text (10 November); and refused QQ Mail logins, which are now reported as rejected logins so the dashboard asks for a new authorization code.
+- **WeChat Pay:** Plus and Pro can be prepaid in CNY with WeChat Pay on a Stripe-hosted page: Plus ¥45/month or ¥450/year, Pro ¥75/month or ¥750/year. A prepaid period never renews. PayPal subscriptions in USD are unchanged. Alipay is being enabled.
+- **Your first check has mail in it:** a new account's first AI connection also receives up to 10 inbox emails from the 72 hours before it connected, marked `catch_up`, and a newly added mailbox stores them on its first sync.
+- **No timeouts while adding a mailbox:** when an AI connects before the account has a mailbox, the authorization page shows steps for QQ Mail, NetEase 163/126, Gmail and Outlook, and the request stays open for 2 hours after each step (at most 12 hours).
+- **ChatGPT plugin 0.5.0** (17 November) with four skills: check email, search email history, draft a reply and first-time setup.
+- **Daily checks:** a connection that only checks mail on demand gets a one-time suggestion, in the AI and on the dashboard, to set up a daily check.
+- **Invite a friend:** when a friend signs up through your link, adds a mailbox and connects an AI, you both get one more mailbox (up to 2 extra for the inviter).
+- **Guides** in English and Chinese for [ChatGPT + QQ Mail](https://inboxmcp.ai/guides/chatgpt-qq-mail), [ChatGPT + 163 Mail](https://inboxmcp.ai/guides/chatgpt-163-mail), [ChatGPT + Outlook](https://inboxmcp.ai/guides/chatgpt-outlook) and [Grok Bot + Tencent Exmail](https://inboxmcp.ai/guides/grok-bot-tencent-exmail).
+- **Feedback button** on the website and dashboard, and a new support address: support@inboxmcp.ai.
+- **Fix:** when a NetEase 163 server returns a notice instead of the original email, the notice is no longer stored as the email.
 
-**In progress:** OpenAI plugin 0.5.0 (skills and a setup guide, in review since 14 November), the Cursor Marketplace application (resubmitted 14 November), native Gmail sign-in (built, not enabled yet) and Muse review. See the [status table](CHANGELOG.md#in-progress-or-waiting-on-a-platform).
+**In progress:** Alipay (waiting for Stripe's approval), the Cursor Marketplace application (resubmitted 14 November), native Gmail sign-in (built, not enabled yet) and Muse review. See the [status table](CHANGELOG.md#in-progress-or-waiting-on-a-platform).
 
 ## What it does
 
@@ -97,7 +99,7 @@ Availability depends on the platform, account and configuration. The table disti
 | Platform | Connection and execution | Verified scope and limits |
 | --- | --- | --- |
 | **Claude** | Published Community connector; compatible Claude Scheduled tasks can poll InboxMCP. | Public directory visibility was confirmed on 4 October; the listing was updated with all 17 tools on 30 October. Incoming mail does not directly wake Claude. Set up and verify your scheduled task; new permissions require authorization. |
-| **ChatGPT** | Public plugin in the ChatGPT plugin directory, listed since 29 October (version 0.4.0 with all 17 tools by 14 November). ChatGPT can schedule a recurring check. | Installing the plugin does not create a schedule; ask ChatGPT for one. Version 0.5.0, with skills and a setup guide, is in OpenAI's review. |
+| **ChatGPT** | Public plugin in the ChatGPT plugin directory, listed since 29 October with all 17 tools; version 0.5.0 with four skills since 17 November. ChatGPT can schedule a recurring check. | Installing the plugin does not create a schedule; ask ChatGPT for one. Version 0.5.0, with skills and a setup guide, is in OpenAI's review. |
 | **ChatGPT Dot** | Private plugin added on ChatGPT web; Dot subscribes to InboxMCP's new-mail events. Needs a ChatGPT plan with dots. | Verified on one ChatGPT Pro account from 7 to 13 October: the subscription renewed itself daily, 520 new-mail signals were accepted on the first attempt and Dot completed 537 emails with chat summaries. Mobile push and long-term reliability remain separate checks. Dot's private plugin does not need the public listing. |
 | **Grok Bot** | Custom MCP server with OAuth, added from a Bot chat; optional webhook-triggered Routine after separate delivery enablement. | Beta. The MCP connection was verified on 10 October; scheduled MCP processing is not yet verified. Individual synthetic and real-message webhook replies were verified. The platform controls notification behavior; retries can cause duplicates. |
 | **Meta Muse** | Application materials and integration credentials submitted. | Last recorded status: submitted / data-processing review pending. No usable Muse connection or event delivery is claimed. |
@@ -145,7 +147,7 @@ Email content is untrusted data, not authorization to act. From is fixed to the 
 
 ## Plans
 
-Free includes **one connected mailbox**. Plus includes **up to three** for **US$6/month** or **US$60/year**. Pro costs **US$10/month** (monthly only) for unlimited mailboxes, subject to fair use; an automatic safeguard stops new connections at 100 active mailboxes, and you can contact support if you need more. Paid plans renew automatically until cancelled. Checkout availability and your actual allowance appear in the dashboard; some existing beta accounts retain earlier allowances. Provider and AI subscriptions may cost extra.
+Free includes **one connected mailbox**. Plus includes **up to three** for **US$6/month** or **US$60/year**. Pro costs **US$10/month** (monthly only) for unlimited mailboxes, subject to fair use; an automatic safeguard stops new connections at 100 active mailboxes, and you can contact support if you need more. PayPal plans renew automatically until cancelled. Since 20 November, Plus and Pro can also be prepaid in CNY with WeChat Pay (Plus ¥45/month or ¥450/year, Pro ¥75/month or ¥750/year); a prepaid period is a one-time payment that never renews. Checkout availability and your actual allowance appear in the dashboard; some existing beta accounts retain earlier allowances. Provider and AI subscriptions may cost extra.
 
 ## Limits and control
 
@@ -169,4 +171,4 @@ Ask questions, share setups and suggest features in the [InboxMCP Discord](https
 
 ## Links
 
-[Privacy](https://app.inboxmcp.ai/privacy) · [Terms](https://inboxmcp.ai/terms.html) · [Support](https://inboxmcp.ai/support) · [Discord](https://discord.gg/FkRtHzccTq) · Operated by MARTHA TRADE PTE. LTD. · dylan@martha-trade.com
+[Privacy](https://app.inboxmcp.ai/privacy) · [Terms](https://inboxmcp.ai/terms.html) · [Support](https://inboxmcp.ai/support) · [Discord](https://discord.gg/FkRtHzccTq) · Operated by MARTHA TRADE PTE. LTD. · support@inboxmcp.ai

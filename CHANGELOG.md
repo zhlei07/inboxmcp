@@ -2,7 +2,7 @@
 
 InboxMCP is a hosted service, so updates reach every account when they are deployed; there is nothing to install or upgrade. The MCP server still reports version **0.4.0**: the changes since 10 October were deployed without a new version number. This repository holds documentation only, not the server's source code.
 
-Status checked **16 November 2026**; platform and directory review states were last checked on 14 November. Platform and directory review states keep the date of their last recorded check. Nothing here implies approval or endorsement by a platform.
+Status checked **20 November 2026**; platform and directory review states were last checked on 17 November. Platform and directory review states keep the date of their last recorded check. Nothing here implies approval or endorsement by a platform.
 
 ## Feature status
 
@@ -29,7 +29,7 @@ Status checked **16 November 2026**; platform and directory review states were l
 | Collection and sending on by default | 13 Oct | A newly added IMAP mailbox starts collecting and, after a verified SMTP sign-in with the same login, can send. Either can be unticked before saving. Existing mailboxes keep their settings and get one-click buttons. |
 | History search and attachment download | 23 Oct | `search_emails`, `read_search_result` and `fetch_attachment` (up to 5 MB). Every folder except Sent and Drafts is searched at the provider. 17 MCP tools in total. |
 | Grok Bot sign-in fix | 28 Oct | Clicking Allow in Grok Bot completes the connection. |
-| ChatGPT plugin directory | 29 Oct | Public plugin; version 0.4.0 with all 17 tools listed by 14 November. [ChatGPT guide](https://inboxmcp.ai/support?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#chatgpt-email-assistant). |
+| ChatGPT plugin directory | 29 Oct | Public plugin with all 17 tools; version 0.5.0, with four skills (check email, search email history, draft a reply, setup), published 17 November. [ChatGPT guide](https://inboxmcp.ai/support?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#chatgpt-email-assistant). |
 | Problems reported once, only when they persist | 29 Oct | A collection error reaches the AI after about 10 minutes of failed polls (a refused login after 3), flagged `notify_owner` once and again after 24 hours if unresolved. |
 | Sliding connection lifetime | 29 Oct | Each token refresh restarts the 30-day window; an idle connection still expires. |
 | Updated Claude directory listing | 30 Oct | All 17 tools and optional owner-confirmed sending. |
@@ -38,12 +38,19 @@ Status checked **16 November 2026**; platform and directory review states were l
 | Parallel collection | 31 Oct | Up to 12 mailboxes at once, at most 6 per mail server, so each mailbox is checked about every minute. |
 | Backups without email bodies | 31 Oct | Bodies, event payloads and drafts are left out of backups. |
 | Chinese mail and QQ login fixes | 5 and 10 Nov | Long Tencent Exmail messages, large emails whose gb2312 headers carry GBK text, and refused QQ logins (now `login_rejected`). |
+| Daily check suggestion | 16 Nov | A connection that only checks mail on demand gets `daily_check_suggestion` once (at most every 7 days) and a dismissible dashboard tip. |
+| Invite a friend | 16 Nov | Once a friend who signed up through your link has a mailbox and a connected AI, both accounts get one more mailbox (up to 2 extra for the inviter). |
+| Step-by-step guides | 16 Nov | English and Chinese guides for ChatGPT with QQ Mail, 163 Mail and Outlook, and Grok Bot with Tencent Exmail. |
+| Longer authorization window | 19 Nov | A pending AI authorization stays open 2 hours after the owner's last step (at most 12 hours), and the consent page shows provider steps when the account has no mailbox yet. |
+| First check catch-up | 19 Nov | A new account's first progress-tracking connection also receives up to 10 inbox emails from the 72 hours before consent, marked `catch_up: true`. A newly added mailbox stores them on its first sync. |
+| Feedback button and support address | 19 Nov | Feedback from every website page and the dashboard, read daily. Support: support@inboxmcp.ai. |
+| WeChat Pay prepaid plans | 20 Nov | Plus ¥45/month or ¥450/year, Pro ¥75/month or ¥750/year, on a Stripe-hosted page. One-time, never renews; a second purchase starts when the current period ends. |
 
 ### In progress or waiting on a platform
 
 | Item | Current state | Still needed |
 | --- | --- | --- |
-| ChatGPT / OpenAI directory listing | Published: InboxMCP is in the ChatGPT plugin directory (0.4.0, 17 tools). Version 0.5.0, with skills and a setup guide, has been in review since 14 November. | OpenAI's decision on 0.5.0. |
+| Alipay prepaid plans | WeChat Pay is live (20 November). Alipay is waiting for Stripe's approval of the payment method. | Stripe's approval. |
 | ChatGPT Dot event-triggered runs | Live for anyone whose ChatGPT plan has dots, as a private plugin. One Pro account ran from 7 to 13 October with daily subscription renewal and 537 emails completed. | Mobile push and long-term reliability. Each account still needs its own check. |
 | Native Gmail sign-in | Built and tested with synthetic provider responses. **Not enabled in production.** (Microsoft sign-in is live since 17 October.) | Google app registration and review, followed by real authorization, collection and refresh tests. Until then, Gmail uses IMAP with an app password. |
 | Cursor Marketplace | Cursor web and Cursor Desktop both completed sign-in and read mail on 18 October. Not listed yet; the application was resubmitted on 14 November with a plugin package (17 tools, three skills). | The marketplace decision. |
@@ -57,6 +64,31 @@ Status checked **16 November 2026**; platform and directory review states were l
 POP3, attachment analysis (your AI can download an attachment of up to 5 MB), outgoing attachments, arbitrary sender addresses and autonomous sending without owner confirmation.
 
 ## Release notes
+
+### 16–20 November 2026 (server version 0.4.0)
+
+**Plans and billing**
+
+- **WeChat Pay** (20 November): Plus (¥45/month, ¥450/year) and Pro (¥75/month, ¥750/year) can be prepaid in CNY on a Stripe-hosted page. A prepaid period is a one-time payment that never renews; buying the same plan again starts when the current period ends. PayPal subscriptions in USD are unchanged. Alipay waits for Stripe's approval.
+- **Invite a friend** (16–18 November): once a friend who signed up through your link has a mailbox and a connected AI, both accounts get one more mailbox (up to 2 extra for the inviter). The invite code now travels in the link itself, not only in a cookie.
+
+**Getting started**
+
+- **Longer authorization window** (19 November): a pending AI authorization stays open 2 hours after the owner's last step, at most 12 hours, so getting a QQ or 163 authorization code or a Gmail app password no longer lets it expire. When the account has no mailbox yet, the consent page shows steps for QQ Mail, NetEase 163/126, Gmail and Outlook. `list_mailboxes` also reports the plan's mailbox limit and where to add another.
+- **First check catch-up** (19 November): a new account's first progress-tracking connection also receives up to 10 inbox emails from the 72 hours before consent, delivered first and marked `catch_up: true`. A newly added mailbox stores them on its first sync; they never arrive a second time as new mail.
+- **Daily check suggestion** (16 November): a connection that only checks mail on demand gets `daily_check_suggestion` once (at most every 7 days) and a dismissible dashboard tip worded for ChatGPT, Grok Bot, Claude or other clients.
+- **Guides** (16 November): English and Chinese step-by-step pages for ChatGPT with QQ Mail, 163 Mail and Outlook, and Grok Bot with Tencent Exmail.
+- **ChatGPT plugin 0.5.0** (17 November): four skills (check email, search email history, draft a reply, setup) and a new About text on the directory page.
+
+**Reading mail**
+
+- When a NetEase 163 server returns a short notice instead of the original email, InboxMCP no longer stores the notice as the email (19 November).
+- Parallel history-search reads are queued fairly across connections and mailboxes (19 November).
+
+**Support**
+
+- A **feedback button** on every website page and in the dashboard; feedback is read daily (19 November).
+- The support and refund address is now **support@inboxmcp.ai** (19 November).
 
 ### 17 October – 16 November 2026 (server version 0.4.0)
 
