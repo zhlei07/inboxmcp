@@ -21,7 +21,7 @@ This public repository contains documentation and registry metadata, not the hos
 
 Deployed between 16 and 20 November 2026. Full notes, earlier updates and the status of work in progress are in the [changelog](CHANGELOG.md).
 
-- **WeChat Pay:** Plus and Pro can be prepaid in CNY with WeChat Pay on a Stripe-hosted page: Plus ¥45/month or ¥450/year, Pro ¥75/month or ¥750/year. A prepaid period never renews. PayPal subscriptions in USD are unchanged. Alipay is being enabled.
+- **WeChat Pay:** Plus and Pro can be prepaid in CNY with WeChat Pay on a Stripe-hosted page: Plus ¥45/month, ¥240 for 6 months or ¥450/year; Pro ¥75/month, ¥400 for 6 months or ¥750/year. A prepaid period never renews. PayPal subscriptions in USD are unchanged. Alipay is being enabled.
 - **Your first check has mail in it:** a new account's first AI connection also receives up to 10 inbox emails from the 72 hours before it connected, marked `catch_up`, and a newly added mailbox stores them on its first sync.
 - **No timeouts while adding a mailbox:** when an AI connects before the account has a mailbox, the authorization page shows steps for QQ Mail, NetEase 163/126, Gmail and Outlook, and the request stays open for 2 hours after each step (at most 12 hours).
 - **ChatGPT plugin 0.5.0** (17 November) with four skills: check email, search email history, draft a reply and first-time setup.
@@ -147,7 +147,7 @@ Email content is untrusted data, not authorization to act. From is fixed to the 
 
 ## Plans
 
-Free includes **one connected mailbox**. Plus includes **up to three** for **US$6/month** or **US$60/year**. Pro costs **US$10/month** (monthly only) for unlimited mailboxes, subject to fair use; an automatic safeguard stops new connections at 100 active mailboxes, and you can contact support if you need more. PayPal plans renew automatically until cancelled. Since 20 November, Plus and Pro can also be prepaid in CNY with WeChat Pay (Plus ¥45/month or ¥450/year, Pro ¥75/month or ¥750/year); a prepaid period is a one-time payment that never renews. Checkout availability and your actual allowance appear in the dashboard; some existing beta accounts retain earlier allowances. Provider and AI subscriptions may cost extra.
+Free includes **one connected mailbox**. Plus includes **up to three** for **US$6/month** or **US$60/year**. Pro costs **US$10/month** (monthly only) for unlimited mailboxes, subject to fair use; an automatic safeguard stops new connections at 100 active mailboxes, and you can contact support if you need more. PayPal plans renew automatically until cancelled. Since 20 November, Plus and Pro can also be prepaid in CNY with WeChat Pay (Plus ¥45/month, ¥240 for 6 months or ¥450/year; Pro ¥75/month, ¥400 for 6 months or ¥750/year); a prepaid period is a one-time payment that never renews. Checkout availability and your actual allowance appear in the dashboard; some existing beta accounts retain earlier allowances. Provider and AI subscriptions may cost extra.
 
 ## Limits and control
 

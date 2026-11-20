@@ -44,7 +44,7 @@ Status checked **20 November 2026**; platform and directory review states were l
 | Longer authorization window | 19 Nov | A pending AI authorization stays open 2 hours after the owner's last step (at most 12 hours), and the consent page shows provider steps when the account has no mailbox yet. |
 | First check catch-up | 19 Nov | A new account's first progress-tracking connection also receives up to 10 inbox emails from the 72 hours before consent, marked `catch_up: true`. A newly added mailbox stores them on its first sync. |
 | Feedback button and support address | 19 Nov | Feedback from every website page and the dashboard, read daily. Support: support@inboxmcp.ai. |
-| WeChat Pay prepaid plans | 20 Nov | Plus ¥45/month or ¥450/year, Pro ¥75/month or ¥750/year, on a Stripe-hosted page. One-time, never renews; a second purchase starts when the current period ends. |
+| WeChat Pay prepaid plans | 20 Nov | Plus ¥45/month, ¥240 for 6 months or ¥450/year; Pro ¥75/month, ¥400 for 6 months or ¥750/year, on a Stripe-hosted page. The dashboard shows each longer period's monthly equivalent and saving. One-time, never renews; a second purchase starts when the current period ends. |
 
 ### In progress or waiting on a platform
 
@@ -69,7 +69,7 @@ POP3, attachment analysis (your AI can download an attachment of up to 5 MB), ou
 
 **Plans and billing**
 
-- **WeChat Pay** (20 November): Plus (¥45/month, ¥450/year) and Pro (¥75/month, ¥750/year) can be prepaid in CNY on a Stripe-hosted page. A prepaid period is a one-time payment that never renews; buying the same plan again starts when the current period ends. PayPal subscriptions in USD are unchanged. Alipay waits for Stripe's approval.
+- **WeChat Pay** (20 November): Plus (¥45/month, ¥240 for 6 months, ¥450/year) and Pro (¥75/month, ¥400 for 6 months, ¥750/year) can be prepaid in CNY on a Stripe-hosted page; longer periods cost less per month, and the dashboard shows the saving. A prepaid period is a one-time payment that never renews; buying the same plan again starts when the current period ends. PayPal subscriptions in USD are unchanged. Alipay waits for Stripe's approval.
 - **Invite a friend** (16–18 November): once a friend who signed up through your link has a mailbox and a connected AI, both accounts get one more mailbox (up to 2 extra for the inviter). The invite code now travels in the link itself, not only in a cookie.
 
 **Getting started**
