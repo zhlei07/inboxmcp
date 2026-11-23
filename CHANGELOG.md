@@ -2,7 +2,7 @@
 
 InboxMCP is a hosted service, so updates reach every account when they are deployed; there is nothing to install or upgrade. The MCP server still reports version **0.4.0**: the changes since 10 October were deployed without a new version number. This repository holds documentation only, not the server's source code.
 
-Status checked **20 November 2026**; platform and directory review states were last checked on 17 November. Platform and directory review states keep the date of their last recorded check. Nothing here implies approval or endorsement by a platform.
+Status checked **24 November 2026**; platform and directory review states were last checked on 17 November. Platform and directory review states keep the date of their last recorded check. Nothing here implies approval or endorsement by a platform.
 
 ## Feature status
 
@@ -44,6 +44,13 @@ Status checked **20 November 2026**; platform and directory review states were l
 | Longer authorization window | 19 Nov | A pending AI authorization stays open 2 hours after the owner's last step (at most 12 hours), and the consent page shows provider steps when the account has no mailbox yet. |
 | First check catch-up | 19 Nov | A new account's first progress-tracking connection also receives up to 10 inbox emails from the 72 hours before consent, marked `catch_up: true`. A newly added mailbox stores them on its first sync. |
 | Feedback button and support address | 19 Nov | Feedback from every website page and the dashboard, read daily. Support: support@inboxmcp.ai. |
+| In-chat confirmation on by default for ChatGPT and Claude | 22 Nov | Where the client shows MCP confirmation forms, the owner confirms the exact email in the conversation; other clients confirm at the review link until the owner turns it on per connection. |
+| Sent folder copies | 23 Nov | For IMAP mailboxes InboxMCP saves the sender's copy (with Bcc, as Gmail does) in the Sent folder unless the provider kept one. Per-mailbox switch, on by default. |
+| Undo send | 23 Nov | A confirmed email waits 10 seconds by default (0–30) before it is submitted; `cancel_email_send` or the review page stops it. |
+| Signatures and reply threads | 23 Nov | A plain-text signature per mailbox; replies carry the full References chain. |
+| Drafts in the mailbox | 23 Nov | `save_draft_to_mailbox` places a draft in the mailbox's Drafts folder for the owner to send; InboxMCP never sends it afterwards. |
+| Bounce notices | 23 Nov | Delivery reports about a sent draft show in `get_email_draft` as bounced or delayed, per recipient. |
+| Attachments and formatted email | 23 Nov | From earlier emails (`message_ref` + `attachment_id`), small AI-made files (40 KB) or the owner's uploads on the review page; up to 10 files, 10 MB each, 15 MB in all (about 2 MB for Microsoft or Google sign-in mailboxes). `format: markdown` adds HTML rendered from the reviewed text, with a preview. |
 | WeChat Pay prepaid plans | 20 Nov | Plus ¥45/month, ¥240 for 6 months or ¥450/year; Pro ¥75/month, ¥400 for 6 months or ¥750/year, on a Stripe-hosted page. The dashboard shows each longer period's monthly equivalent and saving. One-time, never renews; a second purchase starts when the current period ends. |
 
 ### In progress or waiting on a platform
@@ -61,9 +68,24 @@ Status checked **20 November 2026**; platform and directory review states were l
 
 ### Not currently supported
 
-POP3, attachment analysis (your AI can download an attachment of up to 5 MB), outgoing attachments, arbitrary sender addresses and autonomous sending without owner confirmation.
+POP3, attachment analysis (your AI can download an attachment of up to 5 MB), arbitrary sender addresses and autonomous sending without owner confirmation.
 
 ## Release notes
+
+### 22–24 November 2026 (server version 0.6.0)
+
+**Sending like a mail app.** Every email is still sent only after the owner confirms the exact email.
+
+- **Sent folder copies:** after an IMAP mailbox's email is accepted, InboxMCP checks the Sent folder and saves the sender's copy (same headers and Date, plus Bcc) if the provider kept none. Gmail and Microsoft keep their own. A failed copy never resends the email.
+- **Undo send:** confirmation schedules the email after the owner's undo time (10 s by default). The owner can cancel on the review page and the agent with `cancel_email_send`.
+- **Signatures and threads:** a signature per mailbox is appended once; replies carry the conversation's References chain.
+- **Drafts in the mailbox:** `save_draft_to_mailbox` writes an unconfirmed draft to the mailbox's Drafts folder.
+- **Bounces:** delivery reports that name a draft are shown on it, per recipient; diagnostics are quoted as untrusted text.
+- **Attachments and formatting:** files from earlier emails, small AI-made files or the owner's uploads; Markdown rendered to HTML from the reviewed text, with a preview. A draft with a file the AI made is confirmed only on the review page, where the owner can open it. Attached files are encrypted and deleted once the draft is finished; backups never contain them.
+- **In-chat confirmation** is on by default for ChatGPT and Claude connections (22 November).
+- **Homepage** section on replying like a mail app, in English, Chinese and Spanish.
+
+Two new tools: `cancel_email_send` and `save_draft_to_mailbox` (19 in all).
 
 ### 16–20 November 2026 (server version 0.4.0)
 

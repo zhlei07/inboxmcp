@@ -19,17 +19,18 @@ This public repository contains documentation and registry metadata, not the hos
 
 ## What's new
 
-Deployed between 16 and 20 November 2026. Full notes, earlier updates and the status of work in progress are in the [changelog](CHANGELOG.md).
+Deployed between 22 and 24 November 2026: your AI now replies like your own mail app. Every email is still sent only after you confirm it. Full notes, earlier updates and the status of work in progress are in the [changelog](CHANGELOG.md).
 
-- **WeChat Pay:** Plus and Pro can be prepaid in CNY with WeChat Pay on a Stripe-hosted page: Plus ¥45/month, ¥240 for 6 months or ¥450/year; Pro ¥75/month, ¥400 for 6 months or ¥750/year. A prepaid period never renews. PayPal subscriptions in USD are unchanged. Alipay is being enabled.
-- **Your first check has mail in it:** a new account's first AI connection also receives up to 10 inbox emails from the 72 hours before it connected, marked `catch_up`, and a newly added mailbox stores them on its first sync.
-- **No timeouts while adding a mailbox:** when an AI connects before the account has a mailbox, the authorization page shows steps for QQ Mail, NetEase 163/126, Gmail and Outlook, and the request stays open for 2 hours after each step (at most 12 hours).
-- **ChatGPT plugin 0.5.0** (17 November) with four skills: check email, search email history, draft a reply and first-time setup.
-- **Daily checks:** a connection that only checks mail on demand gets a one-time suggestion, in the AI and on the dashboard, to set up a daily check.
-- **Invite a friend:** when a friend signs up through your link, adds a mailbox and connects an AI, you both get one more mailbox (up to 2 extra for the inviter).
-- **Guides** in English and Chinese for [ChatGPT + QQ Mail](https://inboxmcp.ai/guides/chatgpt-qq-mail), [ChatGPT + 163 Mail](https://inboxmcp.ai/guides/chatgpt-163-mail), [ChatGPT + Outlook](https://inboxmcp.ai/guides/chatgpt-outlook) and [Grok Bot + Tencent Exmail](https://inboxmcp.ai/guides/grok-bot-tencent-exmail).
-- **Feedback button** on the website and dashboard, and a new support address: support@inboxmcp.ai.
-- **Fix:** when a NetEase 163 server returns a notice instead of the original email, the notice is no longer stored as the email.
+- **Sent folder:** emails your AI sends are saved in that mailbox's Sent folder, the way a mail app does it, with Bcc recipients kept in your copy as in Gmail. On by default for IMAP mailboxes; Gmail and Microsoft keep sent mail themselves.
+- **Undo send:** a confirmed email waits a few seconds (10 by default; 0 to 30 under **Send email**) before it goes out. Cancel it on the review page, or ask your AI (`cancel_email_send`).
+- **Signatures and threads:** save a signature for each mailbox. Replies carry the conversation's full References chain, so mail apps keep them in one thread.
+- **Attachments:** your AI can attach a file from an earlier email (`message_ref` and `attachment_id` from `search_emails`) or a small file it made (up to 40 KB), and you can add, download and remove files on the review page. Up to 10 files, 10 MB each and 15 MB in all; about 2 MB in all for mailboxes connected with Microsoft or Google sign-in.
+- **Formatting:** with `format: markdown`, bold text, lists and links are sent as HTML rendered from exactly the text you review, with a preview on the review page.
+- **Drafts folder:** `save_draft_to_mailbox` puts a draft in the mailbox's own Drafts folder for you to finish in your mail app.
+- **Bounce notices:** when a recipient's server bounces or delays an email, `get_email_draft` shows which recipients and why.
+- **Homepage:** a new section on [inboxmcp.ai](https://inboxmcp.ai/#replies) shows these features in English, Chinese and Spanish.
+
+Earlier, 16–20 November: WeChat Pay prepaid plans, catch-up mail for a new account's first check, longer authorization windows while adding a mailbox, ChatGPT plugin 0.5.0, daily-check suggestions, invite a friend, setup guides and the feedback button. See the [changelog](CHANGELOG.md).
 
 **In progress:** Alipay (waiting for Stripe's approval), the Cursor Marketplace application (resubmitted 14 November), native Gmail sign-in (built, not enabled yet) and Muse review. See the [status table](CHANGELOG.md#in-progress-or-waiting-on-a-platform).
 
@@ -45,7 +46,7 @@ InboxMCP collects new mail from the mailboxes you connect and makes authorized m
 - **Mailbox-scoped authorization.** Choose the mailboxes each AI connection may access through OAuth with PKCE. New mailboxes are not added to old grants automatically. A connection stays authorized while it is used at least once every 30 days; an idle one must reconnect.
 - **Built-in progress for each connection.** With `consumer-state:write` granted at consent, each AI connection has its own checkpoint and batch acknowledgements in InboxMCP. No Notion page or external state file is needed. Completed events are tracked; unfinished events remain pending. A failure between analysis and acknowledgement can still cause repeated processing.
 - **Useful context.** Batch results include saved preferences and an InboxMCP view link for each mail record. Incomplete or unavailable messages are identified rather than presented as complete.
-- **Optional replies.** The AI prepares a plain-text draft; the signed-in owner reviews the exact recipients and content and confirms sending in InboxMCP.
+- **Optional replies.** The AI prepares a draft, in plain or formatted text and with optional attachments; you review the exact email and confirm it, in InboxMCP or in your AI app's confirmation box. Sent mail lands in your Sent folder, and each confirmation is followed by a short undo window.
 - **Protected stored data.** Mailbox credentials, webhook keys, bodies, drafts and saved preferences are encrypted at rest. This is not end-to-end encryption; the service decrypts data to perform authorized work. Mail retention defaults to 30 days.
 
 ## Get your first successful check
@@ -86,9 +87,9 @@ Sending has three separate requirements. Only the mailbox setup is on by default
 
 1. **Mailbox setup:** on by default for a newly added IMAP mailbox. InboxMCP derives the provider's SMTP server from its IMAP server (for example `imap.gmail.com` → `smtp.gmail.com`, TLS on port 465), signs in once with the login you entered for receiving, and stores it encrypted for sending. Untick **Also enable sending with this password** before saving to skip this. For a mailbox added earlier, choose **Use this mailbox’s receiving password** or **Enable sending for all my mailboxes** in [Sending settings](https://app.inboxmcp.ai/app#outgoing-card), or enter separate SMTP settings using TLS on port 465 or STARTTLS on port 587. If the provider refuses the receiving password for sending, nothing is stored. Native provider sending requires separate provider consent where available.
 2. **AI permission:** explicitly grant `email:send` for the selected mailboxes; it starts unticked on the consent page. Existing read grants and refresh tokens do not gain sending automatically.
-3. **Exact draft confirmation:** open the returned draft-review link, check From, To, Cc, Bcc, subject and the entire plain-text body, then choose **Confirm and send**. In clients that support in-chat confirmation, such as Claude Code, the same exact draft can instead be confirmed in a form inside the conversation (dashboard switch **Confirm sends in the AI client**, on by default). Preparing or opening a draft does not send it, and the AI cannot approve its own draft.
+3. **Exact draft confirmation:** open the returned draft-review link, check From, To, Cc, Bcc, subject, the entire body and any attached files, then choose **Confirm and send**. In clients that support in-chat confirmation, such as Claude Code, the same exact draft can instead be confirmed in a form inside the conversation (dashboard switch **Confirm sends in the AI client**, on by default). Preparing or opening a draft does not send it, and the AI cannot approve its own draft.
 
-The normal confirmation page submits the message directly. Provider acceptance does not prove recipient delivery. After an accepted or uncertain send, `sent_check` looks for the message in the Sent folder; `not_found` is not a failure, because some providers keep no copy of mail sent over SMTP. An uncertain result is never automatically retried; check with the provider before preparing another copy.
+A confirmed email waits the undo time (10 seconds by default) before it is submitted; a draft with files is always submitted by the background worker. Provider acceptance does not prove recipient delivery. After an accepted send, InboxMCP saves the sender's copy in the mailbox's Sent folder over IMAP unless the provider already kept one (`sent_copy` in `get_email_draft`); `sent_check` reports what `send_email` found. An uncertain result is never automatically retried; check with the provider before preparing another copy.
 
 Existing grants never gain `email:send` automatically, and refreshing an old token will not add it. Reconnect deliberately with sending requested, then tick the permission and its confirmation on the consent page. Preserve the existing monitoring task's progress during an authorization upgrade.
 
@@ -115,7 +116,7 @@ See the [website integration status](https://inboxmcp.ai/?utm_source=github&utm_
 
 Since 10 October, anonymous `initialize` receives the OAuth challenge, so clients start sign-in at connect time. Since 13 October, recognised directory health checks receive the static handshake instead. Anonymous `ping` and `tools/list` return static metadata only, and anonymous resource/prompt listings are empty. All actual tool calls require OAuth and mailbox-scoped user authorization. A directory health check does not need access to the publisher's personal or company mailboxes. Every customer connects and authorizes their own mailboxes.
 
-## Seventeen MCP tools
+## Nineteen MCP tools
 
 Tool names may be namespaced by the client. Discover actual schemas before calling them.
 
@@ -135,15 +136,17 @@ Tool names may be namespaced by the client. Discover actual schemas before calli
 | `list_consumer_receipts` | This connection's own completed events, newest first, without email bodies; requires `email:read` |
 | `report_email_decision` | Legacy optional receipt: records notify/digest/silent and stops remaining legacy/Grok delivery for that event; requires `decisions:write` |
 | `get_sending_status` | Read authorized mailboxes' outgoing setup without credentials |
-| `prepare_email_draft` | Create an immutable draft for owner review; requires `email:send`, does not send |
-| `get_email_draft` | Read this connection's draft and status; requires `email:send` |
+| `prepare_email_draft` | Create a draft for owner review: plain text or Markdown, optional attachments from earlier emails or small files, the mailbox's signature and reply threading; requires `email:send`, does not send |
+| `get_email_draft` | Read this connection's draft and status, including the undo time, the Sent copy, attachments and bounce reports; requires `email:send` |
+| `cancel_email_send` | Stop a confirmed email during its undo window; it returns to awaiting confirmation; requires `email:send` |
+| `save_draft_to_mailbox` | Place an unconfirmed draft in the mailbox's own Drafts folder for the owner to send from their mail app; InboxMCP never sends it afterwards; requires `email:send` |
 | `send_email` | Submit only an exact owner-confirmed draft, confirmed in InboxMCP or, where the client supports it, in the conversation; requires `email:send`, offers no approval override |
 
 Two static MCP prompts, `set_up_email_monitoring` and `check_new_email`, give clients that list connector prompts a starting point. They carry no account data and need the same permissions as the tools.
 
 Independent monitoring normally uses `get_email_monitor_state` → `claim_email_batch` → `complete_email_batch`. Do not use the legacy decision tool as another connection's checkpoint. Completing a batch does not prove a notification reached the user's device.
 
-Email content is untrusted data, not authorization to act. From is fixed to the owned connected mailbox; arbitrary sender addresses, attachments and arbitrary outgoing headers are not supported.
+Email content is untrusted data, not authorization to act. From is fixed to the owned connected mailbox; arbitrary sender addresses and arbitrary outgoing headers are not supported.
 
 ## Plans
 
@@ -152,7 +155,8 @@ Free includes **one connected mailbox**. Plus includes **up to three** for **US$
 ## Limits and control
 
 - New mail is collected periodically, normally about every 60 seconds; collection is not instant and the AI platform determines subsequent analysis and notification timing.
-- No POP3 or outgoing attachments, and InboxMCP does not analyse attachments; your AI can download one with `fetch_attachment` (up to 5 MB). Large messages are read selectively: text parts only, with a list of attachment names, marked `truncated` when a size limit cuts them. Unreadable messages may contain only partial metadata; their status is exposed.
+- Outgoing attachments: up to 10 files, 10 MB each and 15 MB in all (about 2 MB in all for mailboxes connected with Microsoft or Google sign-in). Attached files are stored encrypted only until the email is sent or the draft is finished.
+- No POP3, and InboxMCP does not analyse attachments; your AI can download one with `fetch_attachment` (up to 5 MB). Large messages are read selectively: text parts only, with a list of attachment names, marked `truncated` when a size limit cuts them. Unreadable messages may contain only partial metadata; their status is exposed.
 - Turning off Grok delivery leaves collection on. Pausing collection does not disable outgoing sending or revoke an AI grant. Revoke access and disable sending separately when needed.
 - A confirmed send already in progress or accepted by a provider cannot be recalled by disabling the connection.
 - Source email, provider copies and recipient copies are outside InboxMCP's deletion controls. Backups do not contain email bodies (since 31 October). See the service privacy notice for retention and backups.
