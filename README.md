@@ -14,7 +14,7 @@ Connect your existing mailboxes to your own AI assistant, with built-in processi
 <a href="https://discord.gg/FkRtHzccTq">Discord community</a>
 </p>
 
-**Hosted service 0.4.0 · documentation updated 20 November 2026 · limited public beta.** See [what's new and feature status](CHANGELOG.md).
+**Hosted service 0.6.0 · documentation updated 25 November 2026 · limited public beta.** See [what's new and feature status](CHANGELOG.md).
 This public repository contains documentation and registry metadata, not the hosted server's source code. A service release or registry entry does not mean a platform has approved its directory listing or tested every new capability.
 
 ## What's new
@@ -28,6 +28,8 @@ Deployed between 22 and 24 November 2026: your AI now replies like your own mail
 - **Formatting:** with `format: markdown`, bold text, lists and links are sent as HTML rendered from exactly the text you review, with a preview on the review page.
 - **Drafts folder:** `save_draft_to_mailbox` puts a draft in the mailbox's own Drafts folder for you to finish in your mail app.
 - **Bounce notices:** when a recipient's server bounces or delays an email, `get_email_draft` shows which recipients and why.
+- **Confirm in the ChatGPT conversation:** ChatGPT shows the exact email on a card in the chat, with **Send** and the undo countdown, so there is no separate page to open. On for everyone since 24 November.
+- **What you confirm is what is sent:** invisible characters, such as zero-width and hidden tag characters, are removed when the draft is prepared.
 - **Homepage:** a new section on [inboxmcp.ai](https://inboxmcp.ai/#replies) shows these features in English, Chinese and Spanish.
 
 Earlier, 16–20 November: WeChat Pay prepaid plans, catch-up mail for a new account's first check, longer authorization windows while adding a mailbox, ChatGPT plugin 0.5.0, daily-check suggestions, invite a friend, setup guides and the feedback button. See the [changelog](CHANGELOG.md).
@@ -99,8 +101,8 @@ Availability depends on the platform, account and configuration. The table disti
 
 | Platform | Connection and execution | Verified scope and limits |
 | --- | --- | --- |
-| **Claude** | Published Community connector; compatible Claude Scheduled tasks can poll InboxMCP. | Public directory visibility was confirmed on 4 October; the listing was updated with all 17 tools on 30 October. Incoming mail does not directly wake Claude. Set up and verify your scheduled task; new permissions require authorization. |
-| **ChatGPT** | Public plugin in the ChatGPT plugin directory, listed since 29 October with all 17 tools; version 0.5.0 with four skills since 17 November. ChatGPT can schedule a recurring check. | Installing the plugin does not create a schedule; ask ChatGPT for one. Version 0.5.0, with skills and a setup guide, is in OpenAI's review. |
+| **Claude** | Published Community connector; compatible Claude Scheduled tasks can poll InboxMCP. | Public directory visibility was confirmed on 4 October; the listing was updated with all 17 tools on 30 October and refreshed with a new description and 19 tools on 24 November. Incoming mail does not directly wake Claude. Set up and verify your scheduled task; new permissions require authorization. |
+| **ChatGPT** | Public plugin in the ChatGPT plugin directory since 29 October; version 0.6.0, with four skills and sending like a mail app, since 24 November. The owner confirms each email on a card in the conversation. ChatGPT can schedule a recurring check. | Installing the plugin does not create a schedule; ask ChatGPT for one. |
 | **ChatGPT Dot** | Private plugin added on ChatGPT web; Dot subscribes to InboxMCP's new-mail events. Needs a ChatGPT plan with dots. | Verified on one ChatGPT Pro account from 7 to 13 October: the subscription renewed itself daily, 520 new-mail signals were accepted on the first attempt and Dot completed 537 emails with chat summaries. Mobile push and long-term reliability remain separate checks. Dot's private plugin does not need the public listing. |
 | **Grok Bot** | Custom MCP server with OAuth, added from a Bot chat; optional webhook-triggered Routine after separate delivery enablement. | Beta. The MCP connection was verified on 10 October; scheduled MCP processing is not yet verified. Individual synthetic and real-message webhook replies were verified. The platform controls notification behavior; retries can cause duplicates. |
 | **Meta Muse** | Application materials and integration credentials submitted. | Last recorded status: submitted / data-processing review pending. No usable Muse connection or event delivery is claimed. |
@@ -110,7 +112,7 @@ See the [website integration status](https://inboxmcp.ai/?utm_source=github&utm_
 
 ## Public discovery and directory health
 
-- **Official MCP Registry:** version **0.4.0** was confirmed active and latest on 9 October 2026. [Registry record](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.zhlei07%2Finboxmcp/versions/latest).
+- **Official MCP Registry:** version **0.6.0** is active and latest (published 23 November 2026, checked 24 November). [Registry record](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.zhlei07%2Finboxmcp/versions/latest).
 - **Glama:** anonymous discovery passed in the publisher's screenshot on **9 October 2026 at 19:04:41 Singapore time (11:04:41 UTC)** with Authentication Type **None**. [Public listing](https://glama.ai/mcp/connectors/io.github.zhlei07/inboxmcp). After the 10 October connect-time sign-in change the check failed until 13 October, when directory health checks were answered again. Glama then reported InboxMCP as healthy with 14 tools (tested 13 October 00:13 UTC), and it was still healthy at the 14 November check.
 - **Community directory:** the 9 October health check was supplied to the reviewer of [PR #1126](https://github.com/punkpeye/awesome-remote-mcp-servers/pull/1126#issuecomment-6080079090), which was merged on 15 October.
 

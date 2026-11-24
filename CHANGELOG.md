@@ -1,8 +1,8 @@
 # What's new and feature status
 
-InboxMCP is a hosted service, so updates reach every account when they are deployed; there is nothing to install or upgrade. The MCP server still reports version **0.4.0**: the changes since 10 October were deployed without a new version number. This repository holds documentation only, not the server's source code.
+InboxMCP is a hosted service, so updates reach every account when they are deployed; there is nothing to install or upgrade. The MCP server reports version **0.6.0** since 24 November; the changes between 10 October and then were deployed under 0.4.0. This repository holds documentation only, not the server's source code.
 
-Status checked **24 November 2026**; platform and directory review states were last checked on 17 November. Platform and directory review states keep the date of their last recorded check. Nothing here implies approval or endorsement by a platform.
+Status checked **25 November 2026**; platform and directory review states were last checked on 24 November. Platform and directory review states keep the date of their last recorded check. Nothing here implies approval or endorsement by a platform.
 
 ## Feature status
 
@@ -29,10 +29,10 @@ Status checked **24 November 2026**; platform and directory review states were l
 | Collection and sending on by default | 13 Oct | A newly added IMAP mailbox starts collecting and, after a verified SMTP sign-in with the same login, can send. Either can be unticked before saving. Existing mailboxes keep their settings and get one-click buttons. |
 | History search and attachment download | 23 Oct | `search_emails`, `read_search_result` and `fetch_attachment` (up to 5 MB). Every folder except Sent and Drafts is searched at the provider. 17 MCP tools in total. |
 | Grok Bot sign-in fix | 28 Oct | Clicking Allow in Grok Bot completes the connection. |
-| ChatGPT plugin directory | 29 Oct | Public plugin with all 17 tools; version 0.5.0, with four skills (check email, search email history, draft a reply, setup), published 17 November. [ChatGPT guide](https://inboxmcp.ai/support?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#chatgpt-email-assistant). |
+| ChatGPT plugin directory | 29 Oct | Public plugin; version 0.6.0 (20 tools; four skills: check email, search email history, draft a reply, setup) published 24 November, with each email confirmed on a card in the conversation. [ChatGPT guide](https://inboxmcp.ai/support?utm_source=github&utm_medium=docs&utm_campaign=agent_setup#chatgpt-email-assistant). |
 | Problems reported once, only when they persist | 29 Oct | A collection error reaches the AI after about 10 minutes of failed polls (a refused login after 3), flagged `notify_owner` once and again after 24 hours if unresolved. |
 | Sliding connection lifetime | 29 Oct | Each token refresh restarts the 30-day window; an idle connection still expires. |
-| Updated Claude directory listing | 30 Oct | All 17 tools and optional owner-confirmed sending. |
+| Updated Claude directory listing | 30 Oct | All 17 tools and optional owner-confirmed sending; refreshed on 24 November with a new description and 19 tools. |
 | View links on search results | 30 Oct | `read_search_result` returns `view_url` when InboxMCP retains its own copy, otherwise null. |
 | Send confirmation in the AI client | 30 Oct | Clients on MCP `2026-07-28` with form elicitation, such as Claude Code, show the exact draft in the conversation. Per-connection switch, on by default. `sent_check` looks for the sent copy. |
 | Parallel collection | 31 Oct | Up to 12 mailboxes at once, at most 6 per mail server, so each mailbox is checked about every minute. |
@@ -51,6 +51,8 @@ Status checked **24 November 2026**; platform and directory review states were l
 | Drafts in the mailbox | 23 Nov | `save_draft_to_mailbox` places a draft in the mailbox's Drafts folder for the owner to send; InboxMCP never sends it afterwards. |
 | Bounce notices | 23 Nov | Delivery reports about a sent draft show in `get_email_draft` as bounced or delayed, per recipient. |
 | Attachments and formatted email | 23 Nov | From earlier emails (`message_ref` + `attachment_id`), small AI-made files (40 KB) or the owner's uploads on the review page; up to 10 files, 10 MB each, 15 MB in all (about 2 MB for Microsoft or Google sign-in mailboxes). `format: markdown` adds HTML rendered from the reviewed text, with a preview. |
+| ChatGPT confirmation card | 24 Nov | In a ChatGPT conversation `send_email` shows the exact email on a card; **Send** confirms it, and the card shows the undo countdown and the result. `confirm_email_send` is called only by the card. |
+| Invisible characters removed from drafts | 24 Nov | Zero-width characters, hidden tag characters and similar text are removed when a draft is prepared, so the confirmed text is exactly what is sent. |
 | WeChat Pay prepaid plans | 20 Nov | Plus ¥45/month, ¥240 for 6 months or ¥450/year; Pro ¥75/month, ¥400 for 6 months or ¥750/year, on a Stripe-hosted page. The dashboard shows each longer period's monthly equivalent and saving. One-time, never renews; a second purchase starts when the current period ends. |
 
 ### In progress or waiting on a platform
@@ -83,9 +85,11 @@ POP3, attachment analysis (your AI can download an attachment of up to 5 MB), ar
 - **Bounces:** delivery reports that name a draft are shown on it, per recipient; diagnostics are quoted as untrusted text.
 - **Attachments and formatting:** files from earlier emails, small AI-made files or the owner's uploads; Markdown rendered to HTML from the reviewed text, with a preview. A draft with a file the AI made is confirmed only on the review page, where the owner can open it. Attached files are encrypted and deleted once the draft is finished; backups never contain them.
 - **In-chat confirmation** is on by default for ChatGPT and Claude connections (22 November).
+- **ChatGPT confirmation card:** `send_email` shows the exact email on a card in the ChatGPT conversation; **Send** confirms it through the card-only `confirm_email_send`, and the card shows the undo countdown and the result. Admins from 23 November, everyone from 24 November.
+- **Invisible characters removed:** zero-width characters, hidden tag characters, stray variation selectors and similar text are removed from the subject and text when a draft is prepared, so the owner confirms exactly what is sent.
 - **Homepage** section on replying like a mail app, in English, Chinese and Spanish.
 
-Two new tools: `cancel_email_send` and `save_draft_to_mailbox` (19 in all).
+Three new tools: `cancel_email_send`, `save_draft_to_mailbox` and the card-only `confirm_email_send` (20 in all).
 
 ### 16–20 November 2026 (server version 0.4.0)
 
