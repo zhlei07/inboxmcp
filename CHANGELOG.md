@@ -2,7 +2,7 @@
 
 InboxMCP is a hosted service, so updates reach every account when they are deployed; there is nothing to install or upgrade. The MCP server reports version **0.6.0** since 24 November; the changes between 10 October and then were deployed under 0.4.0. This repository holds documentation only, not the server's source code.
 
-Status checked **25 November 2026**; platform and directory review states were last checked on 24 November. Platform and directory review states keep the date of their last recorded check. Nothing here implies approval or endorsement by a platform.
+Status checked **26 November 2026**; platform and directory review states were last checked on 24 November. Platform and directory review states keep the date of their last recorded check. Nothing here implies approval or endorsement by a platform.
 
 ## Feature status
 
@@ -54,6 +54,8 @@ Status checked **25 November 2026**; platform and directory review states were l
 | ChatGPT confirmation card | 24 Nov | In a ChatGPT conversation `send_email` shows the exact email on a card; **Send** confirms it, and the card shows the undo countdown and the result. `confirm_email_send` is called only by the card. |
 | Invisible characters removed from drafts | 24 Nov | Zero-width characters, hidden tag characters and similar text are removed when a draft is prepared, so the confirmed text is exactly what is sent. |
 | WeChat Pay prepaid plans | 20 Nov | Plus ¥45/month, ¥240 for 6 months or ¥450/year; Pro ¥75/month, ¥400 for 6 months or ¥750/year, on a Stripe-hosted page. The dashboard shows each longer period's monthly equivalent and saving. One-time, never renews; a second purchase starts when the current period ends. |
+| Send confirmation in Cursor IDE | 26 Nov | Cursor IDE shows the exact email in its own dialog while `send_email` waits (up to 3 minutes). **Submit** sends it (`approved_via: client_session`); **Cancel**, or no answer, keeps the draft at `review_url`. Connections authorized through Cursor's own callback start with it on; any connection can be switched under **My AI connections**. |
+| Protection from instructions in email | 26 Nov | Text an email hides from people (hidden HTML, invisible characters) is removed before agents read it, reported in `hidden_content_removed`. Wording addressed to AI assistants is flagged in `security_flags` with a `security_note`. Nothing is blocked or hidden from the owner. |
 
 ### In progress or waiting on a platform
 
@@ -66,13 +68,23 @@ Status checked **25 November 2026**; platform and directory review states were l
 | Grok Bot scheduled processing | The MCP connection works (10 October). The optional webhook Routine has passed single synthetic and real replies. | A Routine or schedule that calls InboxMCP tools unattended, and batch delivery. |
 | Meta Muse | Application materials submitted; no review decision as of 14 November. No Muse connection is available yet. | Muse's review and an official event contract. |
 | Claude wake-on-arrival | Not available on ordinary Claude plans. Scheduled tasks are the supported route. | A platform feature for arrival-triggered runs. |
-| Community directory | Glama is healthy (checked 14 November). InboxMCP is listed in [awesome-remote-mcp-servers](https://github.com/punkpeye/awesome-remote-mcp-servers) since 15 October (PR #1126 merged). | Nothing pending. |
+| Community directory | Glama is healthy (checked 14 November). InboxMCP was added to [awesome-remote-mcp-servers](https://github.com/punkpeye/awesome-remote-mcp-servers) on 15 October (PR #1126), but the entry is no longer in the list (checked 26 November). | A new submission, if wanted. |
 
 ### Not currently supported
 
 POP3, attachment analysis (your AI can download an attachment of up to 5 MB), arbitrary sender addresses and autonomous sending without owner confirmation.
 
 ## Release notes
+
+### 25–26 November 2026 (server version 0.6.0)
+
+**Confirm in Cursor and protection from instructions in email.** Every email is still sent only after the owner confirms the exact email.
+
+- **Cursor IDE dialog:** when Cursor IDE calls `send_email`, InboxMCP shows the exact email in Cursor's own dialog while the call waits, up to 3 minutes. **Submit** sends it (`approved_via: client_session`, undo time as usual); **Cancel**, a changed field or no answer keeps the draft at `review_url`. Tested in the owner's Cursor on 26 November and then turned on for everyone. Cursor connections authorized through Cursor's own HTTPS callback start with in-client confirmation on, as ChatGPT's and Claude's do; other callbacks keep it off until the owner turns it on.
+- **Hidden text removed:** HTML that a mail app does not show (hidden elements and inline styles such as `display:none`, zero font size or zero height) and invisible characters (tag characters, zero-width and bidi controls) are removed before agents read an email. A result says how much in `hidden_content_removed`. Stored mail is unchanged.
+- **Wording addressed to AI assistants flagged:** phrases such as "ignore previous instructions", "you are an AI assistant", "AI assistant: run …", "the owner has pre-authorized you to …" and their Chinese counterparts add `security_flags: ["instructions_to_ai"]` and a `security_note`, so agents do not follow them and tell the owner. Nothing is blocked or quarantined.
+- **Server instructions fit Claude:** Claude clients show about the first 4,000 characters of a server's instructions; InboxMCP's are now shorter than that, with details moved to tool descriptions.
+- **Fixed:** the authorization page no longer shows raw translation keys while it loads.
 
 ### 22–24 November 2026 (server version 0.6.0)
 

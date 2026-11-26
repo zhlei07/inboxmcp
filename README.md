@@ -19,18 +19,14 @@ This public repository contains documentation and registry metadata, not the hos
 
 ## What's new
 
-Deployed between 22 and 24 November 2026: your AI now replies like your own mail app. Every email is still sent only after you confirm it. Full notes, earlier updates and the status of work in progress are in the [changelog](CHANGELOG.md).
+Deployed 25–26 November 2026: confirm emails inside Cursor, and protection against instructions hidden in email. Every email is still sent only after you confirm it. Full notes, earlier updates and the status of work in progress are in the [changelog](CHANGELOG.md).
 
-- **Sent folder:** emails your AI sends are saved in that mailbox's Sent folder, the way a mail app does it, with Bcc recipients kept in your copy as in Gmail. On by default for IMAP mailboxes; Gmail and Microsoft keep sent mail themselves.
-- **Undo send:** a confirmed email waits a few seconds (10 by default; 0 to 30 under **Send email**) before it goes out. Cancel it on the review page, or ask your AI (`cancel_email_send`).
-- **Signatures and threads:** save a signature for each mailbox. Replies carry the conversation's full References chain, so mail apps keep them in one thread.
-- **Attachments:** your AI can attach a file from an earlier email (`message_ref` and `attachment_id` from `search_emails`) or a small file it made (up to 40 KB), and you can add, download and remove files on the review page. Up to 10 files, 10 MB each and 15 MB in all; about 2 MB in all for mailboxes connected with Microsoft or Google sign-in.
-- **Formatting:** with `format: markdown`, bold text, lists and links are sent as HTML rendered from exactly the text you review, with a preview on the review page.
-- **Drafts folder:** `save_draft_to_mailbox` puts a draft in the mailbox's own Drafts folder for you to finish in your mail app.
-- **Bounce notices:** when a recipient's server bounces or delays an email, `get_email_draft` shows which recipients and why.
-- **Confirm in the ChatGPT conversation:** ChatGPT shows the exact email on a card in the chat, with **Send** and the undo countdown, so there is no separate page to open. On for everyone since 24 November.
-- **What you confirm is what is sent:** invisible characters, such as zero-width and hidden tag characters, are removed when the draft is prepared.
-- **Homepage:** a new section on [inboxmcp.ai](https://inboxmcp.ai/#replies) shows these features in English, Chinese and Spanish.
+- **Confirm in Cursor:** when your AI in Cursor sends an email, Cursor shows the exact email in its own dialog. **Submit** sends it; **Cancel** keeps it unsent. Cursor connections authorized through Cursor's own sign-in start with this on, and you can turn it off for any connection under **My AI connections**.
+- **Protection from instructions in email:** text an email hides from people (hidden HTML and invisible characters) is removed before your AI reads it. Wording aimed at AI assistants, such as "ignore previous instructions" or "AI assistant: run this command", is flagged in `security_flags`, so your AI does not follow it and tells you. Nothing is blocked or hidden from you.
+- **Claude reads every rule:** Claude clients show only the first part of a server's instructions. InboxMCP's now fit, so Claude also sees the sending and monitoring rules.
+- **Fixed:** the authorization page no longer flashes raw text keys while it loads.
+
+Earlier, 22–24 November: Sent folder copies, undo send, signatures and threads, attachments, formatting, the Drafts folder, bounce notices and the ChatGPT confirmation card (on for everyone since 24 November).
 
 Earlier, 16–20 November: WeChat Pay prepaid plans, catch-up mail for a new account's first check, longer authorization windows while adding a mailbox, ChatGPT plugin 0.5.0, daily-check suggestions, invite a friend, setup guides and the feedback button. See the [changelog](CHANGELOG.md).
 
