@@ -44,7 +44,7 @@ The selector appears only when built-in progress is authorized and previous prog
 
 - `email:read` allows reading the selected mailboxes.
 - `consumer-state:write`, when available and separately authorized with reading, allows InboxMCP to save that connection's processing progress.
-- `email:send`, when available and separately authorized with reading, allows draft preparation and sending only after the owner confirms the exact draft on the website.
+- `email:send`, when available and separately authorized with reading, allows draft preparation and sending only after the owner confirms the exact draft: on the website, on a card in ChatGPT, or in the AI client's own confirmation dialog (such as Claude Code or Cursor IDE).
 
 Any dynamically registered client may request these permissions. The consent page shows a checkbox for each requested permission, and the grant is exactly what you leave ticked. `email:read` is required. Progress starts ticked; sending starts unticked and needs an extra confirmation. The issued token states the actual scope. Existing grants and refresh tokens never widen, including grants issued under the earlier read-only policy that was retired on 10 October 2026.
 
