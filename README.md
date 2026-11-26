@@ -14,7 +14,7 @@ Connect your existing mailboxes to your own AI assistant, with built-in processi
 <a href="https://discord.gg/FkRtHzccTq">Discord community</a>
 </p>
 
-**Hosted service 0.6.0 · documentation updated 26 November 2026 · limited public beta.** See [what's new and feature status](CHANGELOG.md).
+**Hosted service 0.6.1 · documentation updated 26 November 2026 · limited public beta.** See [what's new and feature status](CHANGELOG.md).
 This public repository contains documentation and registry metadata, not the hosted server's source code. A service release or registry entry does not mean a platform has approved its directory listing or tested every new capability.
 
 ## What's new
@@ -109,7 +109,7 @@ See the [website integration status](https://inboxmcp.ai/?utm_source=github&utm_
 
 ## Public discovery and directory health
 
-- **Official MCP Registry:** version **0.6.0** is active and latest (published 23 November 2026, checked 24 November). [Registry record](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.zhlei07%2Finboxmcp/versions/latest).
+- **Official MCP Registry:** version **0.6.1** is active and latest (published 26 November 2026). [Registry record](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.zhlei07%2Finboxmcp/versions/latest).
 - **Glama:** anonymous discovery passed in the publisher's screenshot on **9 October 2026 at 19:04:41 Singapore time (11:04:41 UTC)** with Authentication Type **None**. [Public listing](https://glama.ai/mcp/connectors/io.github.zhlei07/inboxmcp). After the 10 October connect-time sign-in change the check failed until 13 October, when directory health checks were answered again. Glama then reported InboxMCP as healthy with 14 tools (tested 13 October 00:13 UTC), and it was still healthy at the 14 November check.
 - **Community directory:** the 9 October health check was supplied to the reviewer of [PR #1126](https://github.com/punkpeye/awesome-remote-mcp-servers/pull/1126#issuecomment-6080079090), which was merged on 15 October; the entry is no longer in that list (checked 26 November).
 

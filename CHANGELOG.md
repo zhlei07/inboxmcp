@@ -1,6 +1,6 @@
 # What's new and feature status
 
-InboxMCP is a hosted service, so updates reach every account when they are deployed; there is nothing to install or upgrade. The MCP server reports version **0.6.0** since 24 November; the changes between 10 October and then were deployed under 0.4.0. This repository holds documentation only, not the server's source code.
+InboxMCP is a hosted service, so updates reach every account when they are deployed; there is nothing to install or upgrade. The MCP server reports version **0.6.1** since 26 November (0.6.0 from 24 November; the changes between 10 October and then were deployed under 0.4.0). This repository holds documentation only, not the server's source code.
 
 Status checked **26 November 2026**; platform and directory review states were last checked on 24 November. Platform and directory review states keep the date of their last recorded check. Nothing here implies approval or endorsement by a platform.
 
@@ -76,7 +76,7 @@ POP3, attachment analysis (your AI can download an attachment of up to 5 MB), ar
 
 ## Release notes
 
-### 25–26 November 2026 (server version 0.6.0)
+### 25–26 November 2026 (server version 0.6.1)
 
 **Confirm in Cursor and protection from instructions in email.** Every email is still sent only after the owner confirms the exact email.
 

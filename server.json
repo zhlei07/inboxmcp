@@ -3,7 +3,7 @@
   "name": "io.github.zhlei07/inboxmcp",
   "title": "inboxmcp",
   "description": "Your AI reads and watches every inbox, and replies like your mail app once you confirm each email.",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "websiteUrl": "https://inboxmcp.ai",
   "repository": {
     "url": "https://github.com/zhlei07/inboxmcp",
