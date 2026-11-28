@@ -76,6 +76,10 @@ POP3, attachment analysis (your AI can download an attachment of up to 5 MB), ar
 
 ## Release notes
 
+### 28 November 2026 (server version 0.6.1)
+
+- **Terms of service updated.** New sections on health and other regulated data (InboxMCP is not offered for protected health information under HIPAA, or other data that needs a specific written agreement, unless that agreement, such as a Business Associate Agreement, is signed), warranties and liability, and governing law (Singapore). The sign-in card now links the [terms](https://inboxmcp.ai/terms) under the Sign in button. English, Chinese and Spanish.
+
 ### 25–26 November 2026 (server version 0.6.1)
 
 **Confirm in Cursor and protection from instructions in email.** Every email is still sent only after the owner confirms the exact email.
